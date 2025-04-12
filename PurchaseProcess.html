@@ -528,17 +528,9 @@
         }
 
         
-
-        function printDetails() {
+function printDetails() {
     const rowData = selectedRowData;
     if (!rowData || !headers.length) return;
-
-    const printWindow = window.open('', '_blank');
-
-    if (!printWindow) {
-        alert("Popup blocked! Please allow popups for this site.");
-        return;
-    }
 
     let html = `
         <html>
@@ -590,28 +582,28 @@
         </html>
     `;
 
-    printWindow.document.open();
+    const printWindow = window.open('', '_blank');
     printWindow.document.write(html);
     printWindow.document.close();
-
-    // Wait for the content to load before printing
-    printWindow.onload = function () {
-        printWindow.focus();
-        printWindow.print();
-        printWindow.close();
-    };
+    printWindow.focus();
+    printWindow.print();
+    printWindow.close();
 }
 
 
 
+function displayUserEmail() {
+    const userData = localStorage.getItem("user");
+    if (userData) {
+        const parsedUser = JSON.parse(userData);
+        const email = parsedUser.email;
+        document.getElementById("email-display").textContent = "Logged in: " + email;
+    } else {
+        document.getElementById("email-display").textContent = "Not logged in.";
+    }
+}
+        
 
-        function displayUserEmail() {
-            // Simulate fetching the user's email.  Replace this with your actual method.
-            const userEmail = "testuser@example.com";  //  Replace with actual email retrieval
-            if (userEmail) {
-                document.getElementById("email-display").textContent = "Logged in: " + userEmail;
-            }
-        }
 
 
         window.addEventListener("DOMContentLoaded", function() {
