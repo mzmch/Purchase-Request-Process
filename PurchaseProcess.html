@@ -6,13 +6,13 @@
     <style>
         body {
     font-family: Arial, sans-serif;
-    background: linear-gradient(to bottom right, #2e7d32, #6c757d); /* Gradient of dark green and gray */
-    background-image: url('https://www.transparenttextures.com/patterns/black-tile.png'); /* Small pattern */
-    background-size: 50px 50px; /* Adjust the size of the pattern */
+    background: linear-gradient(to bottom right, #2e7d32, #6c757d); /* Gradient from dark green to grey */
+    background-image: url('https://www.transparenttextures.com/patterns/black-tile.png'); /* Small texture pattern */
+    background-size: 50px 50px; /* Adjust size of the pattern */
+    background-blend-mode: multiply; /* This combines the gradient and texture pattern */
     padding: 0;
     margin: 0;
-    display: flex;
-    flex-direction: column;
+    display: flex; /* Flexbox to place sidebar on the left */
     height: 100vh;
 }
 
@@ -22,6 +22,7 @@
             color: white;
             padding: 20px;
             box-shadow: 2px 0 5px rgba(0,0,0,0.3);
+            position: relative; /* Keeps it fixed to the left */
         }
 
         .menu-section {
@@ -54,6 +55,7 @@
         .content {
             flex-grow: 1;
             padding: 20px;
+            overflow-y: auto; /* Make sure content area is scrollable if needed */
         }
 
         h1 {
