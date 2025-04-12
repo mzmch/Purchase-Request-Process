@@ -5,12 +5,16 @@
     <title>Purchase Requests Viewer</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(to bottom right, #a8bfb1, #254d32);
-            padding: 0;
-            margin: 0;
-            display: flex;
-        }
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to bottom right, #2e7d32, #6c757d); /* Gradient of dark green and gray */
+    background-image: url('https://www.transparenttextures.com/patterns/black-tile.png'); /* Small pattern */
+    background-size: 50px 50px; /* Adjust the size of the pattern */
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
 
         .sidebar {
             width: 220px;
@@ -56,40 +60,45 @@
             color: #2e7d32;
         }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-            box-shadow: 0 0 15px rgba(0,0,0,0.3);
-            background-color: white;
-            cursor: pointer;
-        }
 
-        th {
-            background-color: #2e7d32;
-            color: white;
-        }
+table {
+    width: 100%; /* Ensures the table takes up full available width */
+    max-width: 100%; /* Ensures the table doesn't overflow the page */
+    border-collapse: collapse;
+    margin-top: 20px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.3);
+    background-color: white;
+    cursor: pointer;
+}
 
-        tr:nth-child(odd) {
-            background-color: #f0fff0;
-        }
+th, td {
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: left;
+    word-wrap: break-word;
+    max-width: 100px;
+    overflow: hidden;
+}
 
-        tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
+th {
+    background-color: #2e7d32;
+    color: white;
+}
 
-        tr.selected {
-            background-color: #c8e6c9 !important;
-        }
+tr:nth-child(odd) {
+    background-color: #f0fff0;
+}
 
-        th, td {
-            padding: 10px;
-            border: 1px solid #ccc;
-            text-align: left;
-            word-wrap: break-word;
-            max-width: 100px;
-            overflow: hidden;
-        }
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tr.selected {
+    background-color: #c8e6c9 !important;
+}
+
+
+        
 
         input[type="text"] {
             padding: 8px;
