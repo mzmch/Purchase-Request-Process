@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sign In / Sign Up</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom right, #a8bfb1, #254d32);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+      width: 90%;
+      max-width: 320px;
+      text-align: center;
+    }
+    h2 {
+      color: #2e7d32;
+      text-align: center;
+    }
+    input[type="text"], input[type="email"], input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #2e7d32;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin: 5px 0;
+    }
+    .message {
+      text-align: center;
+      margin-top: 10px;
+      color: #d32f2f;
+    }
+    .success-image {
+      display: none;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2 id="form-title">Sign In</h2>
+    <input type="text" id="name" placeholder="Name" style="display:none;">
+    <input type="email" id="email" placeholder="Email">
+    <input type="password" id="password" placeholder="Password">
+    <button onclick="handleSubmit()" id="submit-btn">Sign In</button>
+    <button onclick="toggleForm()" id="toggle-btn">Switch to Sign Up</button>
+    <div class="message" id="message"></div>
+    <img id="handshake" class="success-image" src="https://media.giphy.com/media/3o7btY7D7D1F8aNJEA/giphy.gif" alt="Handshake Animation" width="100">
+  </div>
+
+  <script>
+    let isSignUp = false;
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbwfb7b25s6DOVDLTBYxZ5jg4MCAfBVLNaPEMkseac2NRI7LJmTJ8Q9g_ew3yGbEoaQf4Q/exec';
+
+    function toggleForm() {
+      isSignUp = !isSignUp;
+      document.getElementById("form-title").textContent = isSignUp ? "Sign Up" : "Sign In";
+      document.getElementById("submit-btn").textContent = isSignUp ? "Sign Up" : "Sign In";
+      document.getElementById("toggle-btn").textContent = isSignUp ? "Switch to Sign In" : "Switch to Sign Up";
+      document.getElementById("name").style.display = isSignUp ? "block" : "none";
+      document.getElementById("message").textContent = "";
+      document.getElementById("handshake").style.display = "none";
+    }
+
+    function handleSubmit() {
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      if (!email || !password || (isSignUp && !name)) {
+        document.getElementById("message").textContent = "Please fill out all fields.";
+        return;
+      }
+
+      const formData = new URLSearchParams();
+      formData.append("func", isSignUp ? "Create" : "Login");
+      if (isSignUp) formData.append("username", name);
+      formData.append("email", email);
+      formData.append("password", password);
+
+      fetch(scriptURL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: formData
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.result === "success" || data.result === "Login successful.") {
+          localStorage.setItem("user", JSON.stringify({ email: email }));
+          document.getElementById("message").style.color = "green";
+          document.getElementById("message").textContent = `Welcome, ${name || email}! Redirecting...`;
+          document.getElementById("handshake").style.display = "block";
+
+          setTimeout(() => {
+            window.location.href = "PurchaseProcess.html";
+          }, 2000);
+        } else {
+          document.getElementById("message").style.color = "#d32f2f";
+          document.getElementById("message").textContent = data.message || "Login failed.";
+          document.getElementById("handshake").style.display = "none";
+        }
+      })
+      .catch(error => {
+        document.getElementById("message").style.color = "#d32f2f";
+        document.getElementById("message").textContent = "Error connecting to server.";
+        console.error("Error:", error);
+        document.getElementById("handshake").style.display = "none";
+      });
+    }
+  </script>
+</body>
+</html>
