@@ -274,6 +274,8 @@
         </div>
     </div>
     <div id="email-display"></div>
+    <button id="logoutButton" onclick="logout()">Logout</button>
+
 
     <script>
         const SHEET_URL = "https://script.google.com/macros/s/AKfycbz5OgHLArUF1OU7JisIM-X8gejBOVCgiPCExPkL8ZcJ0sbcDZamrqOnAsMHlbrdP6Lj/exec";
@@ -526,6 +528,16 @@
             if (!selectedRowData) return;
             openModal('reject', allData.indexOf(selectedRowData) + 1);
         }
+
+
+
+        function logout() {
+    // Clear user data from localStorage
+    localStorage.removeItem("user");
+    
+    // Redirect to index.html
+    window.location.href = "index.html";
+}
 
         
 function printDetails() {
