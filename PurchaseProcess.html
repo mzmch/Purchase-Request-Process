@@ -527,63 +527,70 @@
             openModal('reject', allData.indexOf(selectedRowData) + 1);
         }
 
-        function printDetails() {
-            const rowData = selectedRowData;
-            if (!rowData) return;
+        
+function printDetails() {
+    const rowData = selectedRowData;
+    if (!rowData || !headers.length) return;
 
-            let printContent = `
-                <html>
-                <head>
-                    <title>Print Details</title>
-                     <style>
-                        body {
-                            font-family: Arial, sans-serif;
-                        }
-                        table {
-                            width: 100%;
-                            border-collapse: collapse;
-                            margin-top: 20px;
-                        }
-                        th, td {
-                            padding: 8px;
-                            border: 1px solid #ccc;
-                            text-align: left;
-                        }
-                        th {
-                            background-color: #2e7d32;
-                            color: white;
-                        }
-                    </style>
-                </head>
-                <body>
-                    <h2>Purchase Request Details</h2>
-                    <table>
-            `;
+    let html = `
+        <html>
+        <head>
+            <title>Print Details</title>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    padding: 20px;
+                }
+                h2 {
+                    color: #2e7d32;
+                }
+                table {
+                    width: 100%;
+                    border-collapse: collapse;
+                    margin-top: 20px;
+                }
+                th, td {
+                    padding: 10px;
+                    border: 1px solid #ccc;
+                    text-align: left;
+                }
+                th {
+                    background-color: #2e7d32;
+                    color: white;
+                }
+            </style>
+        </head>
+        <body>
+            <h2>Purchase Request Details</h2>
+            <table>
+                <thead>
+                    <tr><th>Field</th><th>Value</th></tr>
+                </thead>
+                <tbody>`;
 
-            let i = 0;
-            for (const [key, value] of Object.entries(rowData)) {
-                const printValue = String(value);
-                printContent += `
-                        <tr>
-                            <th>${headers[i]}</th>
-                            <td>${printValue}</td>
-                        </tr>
-                `;
-                i++;
-            }
+    rowData.forEach((value, index) => {
+        html += `<tr>
+                    <td>${headers[index] || "Field " + (index + 1)}</td>
+                    <td>${value}</td>
+                 </tr>`;
+    });
 
-            printContent += `
-                    </table>
-                </body>
-                </html>
-            `;
+    html += `
+                </tbody>
+            </table>
+        </body>
+        </html>
+    `;
 
-            const printWindow = window.open('', '_blank');
-            printWindow.document.write(printContent);
-            printWindow.document.close();
-            printWindow.print();
-            printWindow.close();
-        }
+    const printWindow = window.open('', '_blank');
+    printWindow.document.write(html);
+    printWindow.document.close();
+    printWindow.focus();
+    printWindow.print();
+    printWindow.close();
+}
+
+
 
         function displayUserEmail() {
             // Simulate fetching the user's email.  Replace this with your actual method.
