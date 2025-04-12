@@ -528,9 +528,17 @@
         }
 
         
-function printDetails() {
+
+        function printDetails() {
     const rowData = selectedRowData;
     if (!rowData || !headers.length) return;
+
+    const printWindow = window.open('', '_blank');
+
+    if (!printWindow) {
+        alert("Popup blocked! Please allow popups for this site.");
+        return;
+    }
 
     let html = `
         <html>
@@ -582,13 +590,18 @@ function printDetails() {
         </html>
     `;
 
-    const printWindow = window.open('', '_blank');
+    printWindow.document.open();
     printWindow.document.write(html);
     printWindow.document.close();
-    printWindow.focus();
-    printWindow.print();
-    printWindow.close();
+
+    // Wait for the content to load before printing
+    printWindow.onload = function () {
+        printWindow.focus();
+        printWindow.print();
+        printWindow.close();
+    };
 }
+
 
 
 
