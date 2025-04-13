@@ -471,36 +471,45 @@ button:focus {
             document.getElementById("note").value = "";
         }
 
-        document.getElementById("submitNote").addEventListener("click", function submitNote() {
-            const note = document.getElementById("note").value.trim();
-            if (!note) return alert("Please enter a note.");
-            const userData = localStorage.getItem("user");
-const email = userData ? JSON.parse(userData).email : "Unknown";
-            const now = new Date().toLocaleString('en-US', { hour12: true });
 
-            fetch(SHEET_URL, {
-                method: "POST",
-                body: JSON.stringify({
-                    action: currentAction,
-                    row: currentRow,
-                    email: email,
-                    timestamp: now,
-                    note: note
-                })
-            })
-            .then(response => {
-                  if (!response.ok) {
-                        throw new Error(`HTTP error! Status: ${response.status}`);
-                  }
-                  return response.json();
-            })
-            .then(data => {
-                alert(data.result === "success" ? "Submitted!" : "Error occurred.");
-                closeModal();
-                fetchData();
-            })
-            .catch(err => alert("Error: " + err.message));
-        });
+
+        document.getElementById("submitNote").addEventListener("click", function submitNote() {
+    const note = document.getElementById("note").value.trim();
+    if (!note) return alert("Please enter a note.");
+
+    const userData = localStorage.getItem("user");
+    const email = userData ? JSON.parse(userData).email : "Unknown";
+    const now = new Date().toLocaleString('en-US', { hour12: true });
+
+    // Get request number from input or somewhere on the page
+    const requestNumber = document.getElementById("requestNumber").value.trim(); // Or however you store it
+
+    if (!requestNumber) return alert("Request number is missing.");
+
+    fetch(SHEET_URL, {
+        method: "POST",
+        body: JSON.stringify({
+            action: currentAction,   // e.g., "updateNote"
+            requestNumber: requestNumber,
+            email: email,
+            timestamp: now,
+            note: note
+        })
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(data => {
+        alert(data.result === "success" ? "Submitted!" : "Error occurred.");
+        closeModal();
+        fetchData();
+    })
+    .catch(err => alert("Error: " + err.message));
+});
+
 
         function showRowDetails(rowData) {
             selectedRowData = rowData;
