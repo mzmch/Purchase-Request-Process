@@ -315,7 +315,7 @@ button:focus {
 
 
     <script>
-        const SHEET_URL = "https://script.google.com/macros/s/AKfycbz5OgHLArUF1OU7JisIM-X8gejBOVCgiPCExPkL8ZcJ0sbcDZamrqOnAsMHlbrdP6Lj/exec";
+        const SHEET_URL = "https://script.google.com/macros/s/AKfycbzW2ufOEMygAYlGWjEibj437woMmBTmCaOFZ59gz1y1ACvaEqhtlbi5F1V3pBD24DBT/exec";
         let allData = [];
         let currentPage = 1;
         let currentStatus = 'waiting';
@@ -474,7 +474,8 @@ button:focus {
         document.getElementById("submitNote").addEventListener("click", function submitNote() {
             const note = document.getElementById("note").value.trim();
             if (!note) return alert("Please enter a note.");
-            const email = "user@example.com";
+            const userData = localStorage.getItem("user");
+const email = userData ? JSON.parse(userData).email : "Unknown";
             const now = new Date().toLocaleString('en-US', { hour12: true });
 
             fetch(SHEET_URL, {
