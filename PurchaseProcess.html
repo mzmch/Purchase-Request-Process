@@ -11,15 +11,17 @@
             margin: 0;
             display: flex;
             height: 100vh;
+            color: #333; /* Default text color for better readability on white backgrounds */
         }
 
         .sidebar {
-            width: 120px;
+            width: 120px; /* Slightly wider */
             background-color: #2e7d32;
             color: white;
             padding: 20px;
             box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
             position: relative;
+            flex-shrink: 0; /* Prevent sidebar from shrinking */
         }
 
         .menu-section {
@@ -28,12 +30,15 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 10px 0; /* Add some padding */
+            border-bottom: 1px solid #1b5e20; /* Separator */
         }
 
         .submenu {
             list-style: none;
-            padding-left: 20px;
-            display: none;
+            padding-left: 15px; /* Indent submenu */
+            margin-top: 10px;
+            display: none; /* Hidden by default */
         }
 
         .submenu.show {
@@ -41,242 +46,310 @@
         }
 
         .submenu li {
-            padding: 5px 0;
+            padding: 8px 5px; /* More padding */
             cursor: pointer;
+            border-radius: 3px;
+            transition: background-color 0.2s ease;
         }
+         .submenu li:hover {
+             background-color: #388e3c; /* Hover effect */
+         }
 
-        .submenu li.active, .menu-section.active {
+        .submenu li.active { /* Style for active item */
             background-color: #1b5e20;
+            font-weight: bold;
         }
 
         .content {
             flex-grow: 1;
-            padding: 20px;
-            overflow-y: auto;
+            padding: 25px; /* More padding */
+            overflow-y: auto; /* Allow content scrolling */
+            background-color: #f4f4f4; /* Lighter background for content area */
         }
 
         h1 {
-            color: white;
+            color: #1f1f1f; /* Darker heading */
+            border-bottom: 2px solid #2e7d32;
+            padding-bottom: 10px;
+            margin-top: 0;
         }
+
+        /* Search and Action Bar */
+        .action-bar {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #ffffff;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap; /* Allow wrapping on smaller screens */
+        }
+        .action-bar input[type="text"] {
+            padding: 10px; /* Larger inputs */
+            width: 220px; /* Wider inputs */
+            margin-right: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 10px; /* Spacing for wrap */
+        }
+         .action-bar button {
+            padding: 10px 15px; /* Larger buttons */
+            margin: 5px; /* Consistent margin */
+            border: none; /* Remove border */
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+         }
 
         table {
             width: 100%;
-            max-width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+            border-collapse: collapse; /* Cleaner look */
+            margin-top: 0; /* Remove margin as action-bar provides space */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.15); /* Softer shadow */
             background-color: white;
-            cursor: pointer;
+            font-size: 14px; /* Slightly larger font */
         }
 
         th, td {
-            padding: 6px;
-            border: 1px solid #ccc;
+            padding: 10px 12px; /* More padding */
+            border: 1px solid #ddd; /* Lighter border */
             text-align: left;
             word-wrap: break-word;
-            max-width: 100px;
+           /* max-width removed for better responsiveness, handled by table layout */
             overflow: hidden;
+            text-overflow: ellipsis; /* Add ellipsis for overflow */
         }
+         td {
+             max-width: 150px; /* Limit width and use ellipsis */
+             white-space: nowrap; /* Prevent wrapping */
+         }
+         td.wrap { /* Add class for specific cells needing wrap */
+             white-space: normal;
+             word-wrap: break-word;
+         }
 
         th {
             background-color: #2e7d32;
             color: white;
+            white-space: nowrap; /* Prevent header text wrap */
         }
 
-        tr:nth-child(odd) {
-            background-color: #f0fff0;
+        tbody tr:nth-child(odd) {
+            background-color: #f9f9f9; /* Standard striping */
         }
 
-        tr:nth-child(even) {
-            background-color: #f9f9f9;
+        tbody tr:nth-child(even) {
+            background-color: #ffffff;
         }
 
-        tr.selected {
-            background-color: #c8e6c9 !important;
+        tbody tr:hover {
+            background-color: #e9f5e9 !important; /* Light green hover */
+            cursor: pointer;
         }
 
-        input[type="text"] {
-            padding: 8px;
-            width: 200px;
-            margin-right: 10px;
-        }
-
+        /* Button styling (general) */
         button {
-            padding: 6px 12px;
-            margin: 5px;
             cursor: pointer;
             background-color: #2e7d32;
             color: white;
-            border: 2px solid white;
+            border: none; /* Remove border */
             border-radius: 4px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-            transition: box-shadow 0.3s ease;
+            transition: background-color 0.2s ease, box-shadow 0.2s ease;
+            padding: 8px 15px; /* Default padding */
+             margin: 5px;
         }
-
         button:hover {
             background-color: #388e3c;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
-
-        button:focus {
-            outline: none;
+        button:disabled {
+            background-color: #a5d6a7; /* Lighter green for disabled */
+            cursor: not-allowed;
+            box-shadow: none;
         }
+         button:focus {
+             outline: 2px solid #1b5e20; /* Focus indicator */
+             outline-offset: 2px;
+         }
 
+        /* Modal Styles */
         .modal {
-            display: none; /* Hidden by default */
+            display: none;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
-            justify-content: center; /* Center horizontally */
-            align-items: center; /* Center vertically */
-            z-index: 1000; /* Ensure it's on top */
+            background-color: rgba(0, 0, 0, 0.6); /* Darker overlay */
+            justify-content: center;
+            align-items: center;
+            z-index: 1050; /* Higher z-index */
+            padding: 20px; /* Padding for smaller screens */
         }
 
         .modal-content {
             background: white;
-            padding: 20px;
-            border-radius: 5px;
-            max-width: 600px; /* Max width of the modal */
-            width: 90%; /* Responsive width */
-            overflow-y: auto; /* Scroll if content exceeds height */
-            max-height: 80vh; /* Max height */
+            padding: 25px;
+            border-radius: 8px; /* More rounded */
+            max-width: 700px; /* Wider modal */
+            width: 95%;
+            overflow-y: auto;
+            max-height: 90vh; /* Increased max height */
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
+         .modal-content h3 {
+             margin-top: 0;
+             color: #2e7d32;
+             border-bottom: 1px solid #eee;
+             padding-bottom: 10px;
+         }
 
         #loading {
-           /* Start hidden, use display: flex to show */
             display: none;
-            background-color: rgba(0, 0, 0, 0.6);
+            background-color: rgba(0, 0, 0, 0.7); /* Slightly darker loading */
             color: white;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-           /* Use flex to center content */
             justify-content: center;
             align-items: center;
             font-size: 24px;
-            z-index: 1000; /* Above other content but below modals if needed */
+            z-index: 1100; /* Above modals */
         }
 
         .error-message {
-            color: red;
+            color: #d32f2f; /* Error red */
+            font-weight: bold;
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #ffebee; /* Light red background */
+            border: 1px solid #d32f2f;
+            border-radius: 4px;
         }
 
         .pagination {
-            margin-top: 10px;
+            margin-top: 20px; /* More space above pagination */
+            text-align: center; /* Center pagination */
         }
-
         .pagination button {
-            margin-right: 5px;
+            margin: 0 4px; /* Spacing between page buttons */
         }
 
+        /* Details Modal Table */
         #details-table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 10px;
-            background-color: #f9f9f9;
+            margin-top: 15px;
+            background-color: #fff; /* White background */
             border: 1px solid #ccc;
         }
-
         #details-table th, #details-table td {
-            padding: 8px;
-            border: 1px solid #ccc;
+            padding: 10px;
+            border: 1px solid #eee; /* Lighter internal borders */
             text-align: left;
+            vertical-align: top; /* Align content top */
         }
-
-        #details-table th {
-            background-color: #2e7d32;
-            color: white;
+        #details-table th { /* Field names */
+            background-color: #f5f5f5; /* Light grey */
+            font-weight: bold;
+            width: 150px; /* Fixed width for field names */
+            white-space: nowrap;
         }
+         #details-table td { /* Values */
+             word-wrap: break-word; /* Allow wrapping */
+             white-space: pre-wrap; /* Preserve whitespace/newlines */
+         }
 
         .details-actions {
             display: flex;
             justify-content: flex-end;
-            margin-top: 10px;
+            margin-top: 20px; /* More space */
+            padding-top: 15px;
+            border-top: 1px solid #eee;
         }
-
         .details-actions button {
             margin-left: 10px;
+            min-width: 80px; /* Minimum button width */
         }
 
-        #data-table tbody tr:hover {
-            background-color: #d4edda;
-            cursor: pointer;
-        }
+        /* Top Bar Elements */
+         .top-bar {
+             position: fixed; /* Fixed position */
+             top: 0;
+             right: 0;
+             padding: 10px 20px;
+             background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent */
+             border-bottom-left-radius: 5px;
+             z-index: 1000;
+             display: flex;
+             align-items: center;
+         }
 
         #email-display {
-            position: absolute;
-            top: 10px;
-            right: 100px; /* Adjust as needed based on logout button width */
+            /* position removed, handled by top-bar */
             color: white;
-            font-size: 16px;
-            z-index: 1000;
+            font-size: 14px; /* Adjusted size */
+            margin-right: 15px;
         }
 
         #logoutButton {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            padding: 8px 15px;
-            background-color: #d32f2f; /* Red color for logout */
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
+            /* position removed, handled by top-bar */
+            padding: 6px 12px; /* Smaller logout button */
+            background-color: #d32f2f;
+            font-size: 14px;
         }
-
         #logoutButton:hover {
-            background-color: #c62828; /* Darker red on hover */
+            background-color: #c62828;
         }
 
+
+        /* Session Warning Styles */
         #session-warning {
-             /* Start hidden, use display: flex to show */
             display: none;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.8); /* Darker overlay */
+            background-color: rgba(0, 0, 0, 0.85); /* Darker overlay */
             color: white;
-            z-index: 10000; /* Highest z-index */
+            z-index: 10000;
             justify-content: center;
             align-items: center;
-            flex-direction: column; /* Stack items vertically */
+            flex-direction: column;
             text-align: center;
         }
-
         #session-warning img {
-            width: 150px;
+            width: 120px; /* Smaller logo */
             height: auto;
-            margin-bottom: 20px;
-            animation: pulse 2s infinite; /* Apply the pulse animation */
+            margin-bottom: 25px;
+            animation: pulse 1.8s infinite; /* Slightly faster pulse */
         }
-
         #session-warning .countdown {
-            font-size: 24px;
+            font-size: 22px; /* Adjusted size */
+            margin-bottom: 15px;
+        }
+         #session-warning h2 {
+            font-size: 28px;
+            margin-bottom: 10px;
+         }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.08); opacity: 0.85; } /* Adjusted scale/opacity */
+            100% { transform: scale(1); opacity: 1; }
         }
 
-        /* Keyframe animation for the logo */
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
-                opacity: 1;
-            }
-            50% {
-                transform: scale(1.1);
-                opacity: 0.8;
-            }
-            100% {
-                transform: scale(1);
-                opacity: 1;
-            }
-        }
+         /* Add specific class for wrapping long text if needed */
+        .wrap-text {
+            white-space: normal !important;
+            word-wrap: break-word !important;
+            max-width: none !important; /* Override max-width if set */
+         }
+
     </style>
 </head>
 <body>
@@ -291,38 +364,41 @@
             <li onclick="filterByStatus('all', this)">All</li>
         </ul>
     </div>
+
     <div class="content">
-        <div id="loading">Loading...</div> <h1>Purchase Requests</h1>
-        <input type="text" id="searchDept" placeholder="Search by Department">
-        <input type="text" id="searchMobile" placeholder="Search by Mobile">
-        <button onclick="fetchData()">Search</button>
-        <button onclick="exportToExcel()">Export to Excel</button>
+        <div id="loading">Loading...</div>
+        <h1>Purchase Requests</h1>
+
+        <div class="action-bar">
+            <input type="text" id="searchDept" placeholder="Search by Department">
+            <input type="text" id="searchMobile" placeholder="Search by Mobile">
+            <button onclick="fetchData()">Search</button>
+            <button onclick="exportToExcel()">Export to Excel</button>
+        </div>
+
         <table id="data-table">
             <thead>
                 <tr>
-                    <th>Date</th>
-                    <th>Name</th>
-                    <th>Department</th>
-                    <th>Mobile</th>
-                    <th>Email</th>
-                    <th>Item</th>
-                    <th>Specification</th>
-                    <th>Estimated Cost</th>
-                    <th>Total Cost</th>
-                    <th>Justification</th>
-                    <th>Vendor</th>
-                    <th>Contact</th>
-                    <th>Reason</th>
-                    <th id="actionHeader">Action</th>
+                    <!-- Headers dynamically generated -->
                 </tr>
             </thead>
             <tbody>
-                </tbody>
+                <!-- Table rows dynamically generated -->
+            </tbody>
         </table>
+
         <div class="pagination" id="pagination"></div>
-        <div id="error-message" class="error-message"></div>
+        <div id="error-message" class="error-message" style="display: none;"></div> <!-- Hidden initially -->
     </div>
 
+    <!-- Top right elements -->
+    <div class="top-bar">
+         <div id="email-display"></div>
+         <button id="logoutButton" onclick="logout()">Logout</button>
+    </div>
+
+
+    <!-- Details Modal -->
     <div id="detailsModal" class="modal">
         <div class="modal-content">
             <h3>Request Details</h3>
@@ -334,651 +410,636 @@
                     </tr>
                 </thead>
                 <tbody>
-                    </tbody>
+                    <!-- Details populated here -->
+                </tbody>
             </table>
             <div class="details-actions" id="detailsActions">
-                <button onclick="printDetails()">Print</button>
-                <button onclick="closeDetailsModal()">Close</button>
+                <!-- Buttons dynamically added -->
             </div>
         </div>
     </div>
 
+    <!-- Note Modal -->
     <div id="modal" class="modal">
         <div class="modal-content">
             <h3>Add Note</h3>
-            <textarea id="note" rows="4" style="width:100%; margin-bottom: 10px;"></textarea><br>
-            <button id="submitNote">Submit</button>
-            <button onclick="closeModal()">Cancel</button>
+            <textarea id="note" rows="5" style="width: 98%; margin-bottom: 15px; padding: 8px; border: 1px solid #ccc; border-radius: 4px;"></textarea><br>
+            <div style="text-align: right;"> <!-- Align buttons right -->
+                 <button onclick="closeModal()" style="background-color: #aaa;">Cancel</button>
+                 <button id="submitNote">Submit</button>
+            </div>
         </div>
     </div>
 
-    <div id="email-display"></div>
-    <button id="logoutButton" onclick="logout()">Logout</button>
-
+    <!-- Session Timeout Warning -->
     <div id="session-warning">
-        <img src="https://drive.google.com/uc?export=view&id=1otD1-q33yGpG8Y4oD87HT-E3DmmLApUO" alt="Logo">
+         <!-- Content dynamically added by JS -->
+         <img src="https://drive.google.com/uc?export=view&id=1otD1-q33yGpG8Y4oD87HT-E3DmmLApUO" alt="Logo">
+         <h2>Session Expiring Soon!</h2>
          <div class="countdown">
              ⏳ <span id="countdown-timer">120</span> seconds left! Stay active 😃🎉🥳
          </div>
     </div>
 
     <script>
-        const SHEET_URL = "https://script.google.com/macros/s/AKfycby600m0maUCC-DZ25tm4p7ZiC560iXDsB6e6xt-q_Y_3AZL18R_chr7EkUjbFIy_lJ_/exec";
-        let allData = []; // Stores all fetched data (after header removal)
+        // Ensure this URL matches your *latest* Apps Script Web App Deployment URL
+        const SHEET_URL = "https://script.google.com/macros/s/AKfycbxAUABAkhY2WzD4wWs1tt0PfziNxkAASsAEpygor_fHZD6fkC6fOsdp30ErznMu7Lav/exec";
+
+        let allData = []; // Stores raw data rows fetched (filtered by status)
         let currentPage = 1;
         let currentStatus = 'waiting'; // Default status filter
-        const pageSize = 10; // Number of items per page
-        let currentAction = ''; // Stores 'approve' or 'reject'
-        let currentRow = 0; // Stores original index of row being acted upon (relative to allData) - might not be strictly needed if using selectedRowData
+        const pageSize = 10;
+        let currentAction = ''; // 'approve' or 'reject'
         let menuOpen = false;
-        let headers = []; // Stores the header row from the fetched data
-        let selectedRowData = null; // Stores the full data array of the clicked/selected row
+        let headers = []; // Stores header row from sheet
+        let selectedRowData = null; // Stores data array of the currently selected row
 
+        // --- UI Functions ---
         function toggleMenu() {
             const submenu = document.getElementById("submenu");
             const arrow = document.getElementById("arrow");
             menuOpen = !menuOpen;
             submenu.classList.toggle("show", menuOpen);
-            arrow.innerHTML = menuOpen ? "&#9660;" : "&#9654;"; // Down arrow when open, right arrow when closed
+            arrow.innerHTML = menuOpen ? "&#9660;" : "&#9654;";
         }
 
+        function showLoading(show) {
+             document.getElementById("loading").style.display = show ? "flex" : "none";
+        }
+
+        function displayError(message) {
+            const errorDiv = document.getElementById("error-message");
+            errorDiv.textContent = message;
+            errorDiv.style.display = message ? "block" : "none"; // Show only if there's a message
+        }
+
+        // --- Data Handling Functions ---
         function formatDate(inputDate) {
-            // Attempts to format date strings, returns original if invalid
+            if (!inputDate) return ""; // Handle empty input
             const date = new Date(inputDate);
-            if (isNaN(date)) return inputDate; // Return original string if not a valid date
-            // Example format: 13 Apr, 2025, 4:52 PM
+            if (isNaN(date.getTime())) return String(inputDate); // Return original if invalid date
             const options = { day: '2-digit', month: 'short', year: 'numeric', hour: 'numeric', minute: '2-digit', hour12: true };
-            return date.toLocaleString('en-US', options);
+            try {
+                 return date.toLocaleString('en-US', options);
+            } catch (e) {
+                 console.warn("Could not format date:", inputDate, e);
+                 return String(inputDate); // Fallback
+            }
         }
 
         function fetchData() {
             const dept = document.getElementById("searchDept").value.trim();
             const mobile = document.getElementById("searchMobile").value.trim();
-            document.getElementById("loading").style.display = "flex"; // Show loading indicator
-            document.getElementById("error-message").textContent = ""; // Clear previous errors
-            document.querySelector("#data-table tbody").innerHTML = ""; // Clear table body
+            showLoading(true);
+            displayError(""); // Clear previous errors
+            document.querySelector("#data-table tbody").innerHTML = ""; // Clear table
             document.getElementById("pagination").innerHTML = ""; // Clear pagination
 
-            // Construct URL with search parameters
-            const url = `${SHEET_URL}?department=${encodeURIComponent(dept)}&mobile=${encodeURIComponent(mobile)}`;
+            // Append search params only if they have values
+            const params = new URLSearchParams();
+            if (dept) params.append('department', dept);
+            if (mobile) params.append('mobile', mobile);
+            const url = `${SHEET_URL}?${params.toString()}`;
 
             fetch(url)
                 .then(response => {
                     if (!response.ok) {
-                        throw new Error(`HTTP error! Status: ${response.status}`);
+                        return response.text().then(text => { throw new Error(`HTTP error! Status: ${response.status}. Message: ${text || 'No additional message.'}`); });
                     }
-                    return response.json(); // Assuming the response is JSON
+                    return response.json();
                 })
                 .then(data => {
-                    console.log("Fetched Data:", data); // Log fetched data for debugging
-                    if (!Array.isArray(data) || data.length === 0) {
-                        // Handle cases where data is not an array or is empty
-                        throw new Error("No data received or data is not in expected format.");
-                    }
-                    if (data && data.error) { // Check if the JSON itself contains an error property
-                        throw new Error("Error from server: " + data.error);
-                    }
+                    if (!Array.isArray(data) || data.length === 0) throw new Error("No data received or invalid format.");
+                    if (data && data.error) throw new Error("Error from server: " + data.error); // Check for explicit error property
 
-                    headers = data[0]; // First row is headers
-                    let rawData = data.slice(1); // Rest is data rows
+                    headers = data[0];
+                    let rawData = data.slice(1);
 
-                    // Apply status filter *before* pagination
+                    // Filter by status *before* pagination
+                    // Assumes status is at index 14 (Column O)
                     if (currentStatus !== 'all') {
-                        // Assuming status is in the 15th column (index 14)
-                        allData = rawData.filter(row => row[14] && row[14].toString().toLowerCase() === currentStatus);
+                        allData = rawData.filter(row => row[14] && row[14].toString().toLowerCase().startsWith(currentStatus));
                     } else {
-                        allData = rawData; // Use all data if filter is 'all'
+                        allData = rawData;
                     }
 
-                    currentPage = 1; // Reset to first page after fetching/filtering
-                    renderTable(); // Render the table with the filtered data
-                    document.getElementById("loading").style.display = "none"; // Hide loading indicator
+                    currentPage = 1;
+                    renderTable();
+                    showLoading(false);
                 })
                 .catch(error => {
                     console.error("Fetch error:", error);
-                    document.getElementById("error-message").textContent = "Error fetching data: " + error.message;
-                    document.getElementById("loading").style.display = "none"; // Hide loading indicator on error
+                    displayError("Error fetching data: " + error.message);
+                    showLoading(false);
                 });
         }
 
         function filterByStatus(status, el) {
             currentStatus = status;
-            // Update active class on sidebar items
             document.querySelectorAll('.submenu li').forEach(li => li.classList.remove('active'));
             el.classList.add('active');
-            fetchData(); // Refetch data with the new status filter
+            fetchData(); // Refetch data
         }
 
+        // --- Table and Pagination Rendering ---
         function renderTable() {
             const tbody = document.querySelector("#data-table tbody");
-            tbody.innerHTML = ""; // Clear existing rows
+            tbody.innerHTML = "";
             const start = (currentPage - 1) * pageSize;
             const end = start + pageSize;
-            const pageData = allData.slice(start, end); // Get data for the current page
+            const pageData = allData.slice(start, end);
 
-            // Define table headers based on current status filter
-            // Assuming Request No is at index 13, Status at index 14
-            const tableHeadersMap = [
-                { index: 0, header: "Date" },         // Original index 0
-                { index: 1, header: "Name" },         // Original index 1
-                { index: 2, header: "Department" },   // Original index 2
-                { index: 3, header: "Mobile" },       // Original index 3
-                { index: 4, header: "Email" },        // Original index 4
-                { index: 5, header: "Item" },         // Original index 5
-                { index: 6, header: "Specification" },// Original index 6
-                { index: 7, header: "Estimated Cost" },// Original index 7
-                { index: 8, header: "Total Cost" },   // Original index 8
-                { index: 9, header: "Justification" },// Original index 9
-                { index: 10, header: "Vendor" },      // Original index 10
-                { index: 11, header: "Contact" },     // Original index 11
-                { index: 12, header: "Reason" }       // Original index 12
-                // Request No (index 13) and Action/Status (index 14) handled specially
+            // Define which columns to display and their headers
+            // Assuming headers maps directly to indices [0..N]
+            // Indices based on Apps Script: Date=0, Name=1, Dept=2, Mobile=3, Email=4, Item=5, Spec=6, EstCost=7, TotalCost=8, Just=9, Vendor=10, Contact=11, Reason=12, ReqNo=13, Status=14, ActEmail=15, ActTime=16, ActNote=17
+             const columnsToShow = [
+                { index: 0, header: "Date", needsFormat: true },
+                { index: 1, header: "Name" },
+                { index: 2, header: "Department" },
+                { index: 3, header: "Mobile" },
+                { index: 4, header: "Email", wrap: true }, // Allow wrap for email
+                { index: 5, header: "Item" },
+                { index: 6, header: "Specification", wrap: true }, // Allow wrap
+                { index: 7, header: "Est Cost" },
+                { index: 8, header: "Total Cost" },
+                { index: 9, header: "Justification", wrap: true }, // Allow wrap
+                { index: 10, header: "Vendor" },
+                { index: 11, header: "Contact" },
+                { index: 12, header: "Reason", wrap: true }, // Allow wrap
+                // Request No (13) and Status/Action (14) are handled specially below
             ];
 
             let displayHeaders = [];
             if (currentStatus === 'waiting') {
-                displayHeaders = ["Request No", ...tableHeadersMap.map(h => h.header), "Action"];
+                // Add Request No first for 'waiting' view
+                displayHeaders = ["Request No", ...columnsToShow.map(c => c.header), "Action"];
             } else {
-                displayHeaders = [...tableHeadersMap.map(h => h.header), "Action"]; // Show status in Action column for non-waiting views
+                displayHeaders = [...columnsToShow.map(c => c.header), "Status"]; // Show full status string
             }
 
-            // Update the table header row (thead)
+            // Render Headers
             const thead = document.querySelector("#data-table thead tr");
-            thead.innerHTML = ""; // Clear existing headers
+            thead.innerHTML = "";
             displayHeaders.forEach(headerText => {
                 const th = document.createElement("th");
                 th.textContent = headerText;
                 thead.appendChild(th);
             });
 
-
-            // Populate table body rows
-            pageData.forEach((row, pageIndex) => {
-                const originalIndex = allData.findIndex(item => item === row); // Find index in the full filtered list
+            // Render Rows
+            pageData.forEach((row) => {
                 const tr = document.createElement("tr");
-                // Store the full row data directly on the element for easier access
-                tr.dataset.rowData = JSON.stringify(row); // Store original row data
-                tr.addEventListener('click', () => showRowDetails(row)); // Pass the row data directly
+                // Find index in full filtered list to pass to button handlers if needed, although passing `row` directly is better
+                 const originalIndex = allData.findIndex(item => item === row);
 
-                let cellValues = [];
-                let actionContent = row[14] || ''; // Status/Action info is at index 14
+                tr.addEventListener('click', () => showRowDetails(row)); // Pass the full row data
 
+                let cellsToRender = [];
                  if (currentStatus === 'waiting') {
-                    // Order: Request No (13), Date (0), Name (1), ... Reason (12)
-                    cellValues = [row[13], ...tableHeadersMap.map(h => row[h.index])];
-                } else {
-                     // Order: Date (0), Name (1), ... Reason (12)
-                    cellValues = tableHeadersMap.map(h => row[h.index]);
+                    cellsToRender.push({ value: row[13] }); // Request No
+                    columnsToShow.forEach(col => cellsToRender.push({ value: row[col.index], needsFormat: col.needsFormat, wrap: col.wrap }));
+                 } else {
+                    columnsToShow.forEach(col => cellsToRender.push({ value: row[col.index], needsFormat: col.needsFormat, wrap: col.wrap }));
                  }
 
-                cellValues.forEach((cell, cellIdx) => {
+
+                cellsToRender.forEach(cellInfo => {
                     const td = document.createElement("td");
-                    let cellText = (cell === null || typeof cell === 'undefined') ? "" : String(cell); // Handle null/undefined
+                    let cellValue = (cellInfo.value === null || typeof cellInfo.value === 'undefined') ? "" : String(cellInfo.value);
 
-                    // Format date if it's the date column
-                    // Date column is index 1 if 'waiting', index 0 otherwise
-                    const isDateColumn = (currentStatus === 'waiting' && cellIdx === 1) || (currentStatus !== 'waiting' && cellIdx === 0);
-                    if (isDateColumn) {
-                        cellText = formatDate(cellText);
+                    if (cellInfo.needsFormat) {
+                         cellValue = formatDate(cellValue);
                     }
 
-                    // Truncate long text
-                    if (cellText.length > 100) {
-                        td.textContent = cellText.substring(0, 100) + "...";
-                        td.title = cellText; // Show full text on hover
-                    } else {
-                        td.textContent = cellText;
+                    td.textContent = cellValue;
+                    td.title = cellValue; // Show full text on hover
+
+                    if (cellInfo.wrap) {
+                       // For columns needing wrap, we override the nowrap default
+                       // Note: We'll use CSS max-width and text-overflow, letting wrap happen naturally if needed via a class later if pure nowrap isn't sufficient.
+                       // For now, rely on ellipsis + title tooltip. Add wrap class if needed.
+                       // td.classList.add('wrap-text');
                     }
+
                     tr.appendChild(td);
                 });
 
-                // Add the Action cell
+                // Add Action/Status Cell
                 const actionTd = document.createElement("td");
+                const statusString = row[14] || ''; // Status/Action string at index 14
+
                 if (currentStatus === 'waiting') {
+                    actionTd.style.whiteSpace = 'nowrap'; // Prevent buttons wrapping
                     actionTd.innerHTML = `
                         <button onclick="event.stopPropagation(); openModal('approve', ${originalIndex})">Approve</button>
-                        <button onclick="event.stopPropagation(); openModal('reject', ${originalIndex})">Reject</button>
-                    `; // Use originalIndex relative to allData
+                        <button onclick="event.stopPropagation(); openModal('reject', ${originalIndex})" style="background-color: #d32f2f;">Reject</button>
+                    `;
                 } else {
-                     // For 'approved', 'rejected', 'all', display the status text
-                     if (actionContent.length > 100) {
-                         actionTd.textContent = actionContent.substring(0, 100) + "...";
-                         actionTd.title = actionContent; // Show full text on hover
-                     } else {
-                        actionTd.textContent = actionContent;
-                     }
+                    actionTd.textContent = statusString;
+                    actionTd.title = statusString; // Tooltip for potentially long status
                 }
                 tr.appendChild(actionTd);
-
                 tbody.appendChild(tr);
             });
 
-            renderPagination(); // Update pagination controls
+            renderPagination();
         }
-
 
         function renderPagination() {
             const pagination = document.getElementById("pagination");
-            pagination.innerHTML = ""; // Clear existing buttons
+            pagination.innerHTML = "";
             const totalPages = Math.ceil(allData.length / pageSize);
 
-            if (totalPages <= 1) return; // Don't show pagination if only one page
+            if (totalPages <= 1) return;
 
-            for (let i = 1; i <= totalPages; i++) {
-                const btn = document.createElement("button");
-                btn.textContent = i;
-                btn.onclick = () => {
-                    currentPage = i;
-                    renderTable(); // Re-render table for the new page
-                };
-                if (i === currentPage) {
-                    btn.disabled = true; // Disable button for the current page
-                    btn.style.fontWeight = 'bold';
-                }
-                pagination.appendChild(btn);
+            // Add Previous button
+            const prevBtn = document.createElement("button");
+            prevBtn.textContent = "« Prev";
+            prevBtn.disabled = (currentPage === 1);
+            prevBtn.onclick = () => { if (currentPage > 1) { currentPage--; renderTable(); } };
+            pagination.appendChild(prevBtn);
+
+            // Add Page number buttons (simplified view for many pages)
+            let startPage = Math.max(1, currentPage - 2);
+            let endPage = Math.min(totalPages, currentPage + 2);
+
+            if (startPage > 1) pagination.appendChild(document.createTextNode("... "));
+            for (let i = startPage; i <= endPage; i++) {
+                 const btn = document.createElement("button");
+                 btn.textContent = i;
+                 btn.onclick = () => { currentPage = i; renderTable(); };
+                 if (i === currentPage) {
+                     btn.disabled = true;
+                     btn.style.fontWeight = 'bold';
+                     btn.style.backgroundColor = '#1b5e20'; // Highlight current page
+                 }
+                 pagination.appendChild(btn);
             }
+             if (endPage < totalPages) pagination.appendChild(document.createTextNode(" ..."));
+
+
+            // Add Next button
+            const nextBtn = document.createElement("button");
+            nextBtn.textContent = "Next »";
+            nextBtn.disabled = (currentPage === totalPages);
+            nextBtn.onclick = () => { if (currentPage < totalPages) { currentPage++; renderTable(); } };
+            pagination.appendChild(nextBtn);
         }
 
-        function exportToExcel() {
-            const table = document.getElementById("data-table");
-            if (!table) {
-                alert('Table element not found.');
-                return;
-            }
-
-             // Create a clone of the table to modify for export
-            const tableClone = table.cloneNode(true);
-
-            // Remove action buttons from the cloned table for cleaner export
-            const actionButtons = tableClone.querySelectorAll('tbody button');
-            actionButtons.forEach(button => button.parentNode.removeChild(button)); // Remove buttons within the action cell
-
-            // Optionally, replace truncated content with full content if needed (using stored data)
-            // This part can be complex. For simplicity, we export what's visually rendered.
-
-            let tableHTML = tableClone.outerHTML.replace(/ /g, '%20'); // Basic encoding
-            const filename = `purchase_requests_${currentStatus}_${new Date().toISOString().slice(0,10)}.xls`;
-            const dataType = 'application/vnd.ms-excel'; // MIME type for Excel
-
-            const a = document.createElement('a');
-            document.body.appendChild(a); // Required for Firefox
-            a.style.display = 'none';
-            a.href = 'data:' + dataType + ', ' + tableHTML;
-            a.download = filename;
-            a.click();
-            document.body.removeChild(a);
-        }
-
+        // --- Modal Functions ---
         function openModal(action, index) {
-            // We need the actual row data, not just the index if using selectedRowData approach
-            // Let's ensure selectedRowData is set correctly before this is called,
-            // ideally triggered by the button click having access to its row's data.
-            // Find the corresponding row data from allData using the index
+            // Get the specific row data using the index relative to the 'allData' array
             const rowData = allData[index];
             if (!rowData) {
-                alert("Could not find data for the selected row index.");
+                alert("Error: Could not find data for the specified row index.");
                 return;
             }
-            selectedRowData = rowData; // Ensure selectedRowData is set for the row being acted upon
-
-            currentAction = action; // Store 'approve' or 'reject'
-           // currentRow = index; // Store index relative to allData (optional if using selectedRowData directly)
-            document.getElementById("note").value = ""; // Clear previous notes
-            document.getElementById("modal").style.display = "flex"; // Show the note modal
+            selectedRowData = rowData; // Set the global variable for the row being acted upon
+            currentAction = action;
+            document.getElementById("note").value = ""; // Clear previous note
+            document.getElementById("modal").style.display = "flex";
+            document.getElementById("note").focus(); // Focus the note field
         }
 
         function closeModal() {
             document.getElementById("modal").style.display = "none";
-            document.getElementById("note").value = ""; // Clear note field
         }
 
-        // --- CORRECTED submitNote Event Listener ---
-        document.getElementById("submitNote").addEventListener("click", function submitNote() {
-            const note = document.getElementById("note").value.trim();
-            if (!note) {
-                alert("Please enter a note.");
-                return; // Stop execution if note is missing
-            }
-
-            const userData = localStorage.getItem("user");
-            const email = userData ? JSON.parse(userData).email : "Unknown";
-            const now = new Date().toLocaleString('en-US', { hour12: true });
-
-            // Ensure selectedRowData holds the data for the row being processed
-            if (!selectedRowData) {
-                alert("Error: No row selected or data is missing. Please close the modal and select the row again.");
-                return; // Stop execution
-            }
-
-            // Retrieve the request number from the correct index (13) in the selected row's data array
-            const requestNumber = selectedRowData[13];
-
-            // Check if requestNumber was successfully retrieved from the array data
-            if (requestNumber === null || typeof requestNumber === 'undefined' || String(requestNumber).trim() === '') {
-                alert("Could not determine the Request Number for the selected row. Please check data integrity.");
-                return; // Stop execution
-            }
-
-            console.log(`Submitting action: ${currentAction} for Request No: ${requestNumber} by ${email} with note: ${note}`); // Debug log
-
-            // Show loading indicator
-            document.getElementById("loading").style.display = "flex";
-
-            fetch(SHEET_URL, {
-                method: "POST",
-                // Ensure body is stringified JSON
-                headers: {
-                    'Content-Type': 'application/json',
-                 },
-                body: JSON.stringify({
-                    action: currentAction, // 'approve' or 'reject'
-                    requestNumber: String(requestNumber).trim(), // Send the retrieved request number
-                    email: email,
-                    timestamp: now,
-                    note: note
-                })
-            })
-            .then(response => {
-                // Always hide loading indicator after fetch attempt
-                document.getElementById("loading").style.display = "none";
-                if (!response.ok) {
-                    // Try to get error message from response body if possible
-                     return response.text().then(text => {
-                         // Construct error message including status and text
-                         throw new Error(`HTTP error! Status: ${response.status}. Message: ${text || 'No additional message.'}`);
-                     });
-                }
-                 // Check content type before parsing as JSON
-                 const contentType = response.headers.get("content-type");
-                 if (contentType && contentType.indexOf("application/json") !== -1) {
-                    return response.json();
-                 } else {
-                    // If not JSON, maybe plain text success message from script?
-                    return response.text().then(text => ({ result: 'success', message: text })); // Assume success if OK and not JSON
-                 }
-            })
-            .then(data => {
-                // Check for specific success indicator from your Apps Script if possible
-                if (data.result === "success") {
-                     alert("Submitted successfully!" + (data.message ? `\n${data.message}` : ''));
-                } else {
-                     alert("Submission failed: " + (data.message || "Unknown error from server."));
-                }
-                closeModal();
-                fetchData(); // Refresh the data table
-            })
-            .catch(err => {
-                // Hide loading indicator if it was still shown
-                document.getElementById("loading").style.display = "none";
-                console.error("Submit Error:", err); // Log the full error
-                alert("An error occurred during submission: " + err.message);
-            });
-        });
-        // --- END OF CORRECTED submitNote ---
-
-
         function showRowDetails(rowData) {
-            selectedRowData = rowData; // Store the data of the clicked row
+            selectedRowData = rowData; // Store data for potential actions (like Print)
             const detailsTableBody = document.querySelector("#details-table tbody");
-            detailsTableBody.innerHTML = ""; // Clear previous details
+            detailsTableBody.innerHTML = "";
 
             if (!headers || headers.length === 0) {
-                console.error("Headers not loaded, cannot display details correctly.");
-                // Optionally try to use generic field names if headers are missing
-                headers = Array.from({ length: rowData.length }, (_, i) => `Field ${i + 1}`);
+                 console.error("Headers not available for details view.");
+                 displayError("Cannot display details - header information missing.");
+                 return;
             }
 
-            // Iterate through the row data and create table rows for the modal
-            // Assuming headers array corresponds to rowData indices
-            rowData.forEach((value, index) => {
-                const tr = document.createElement("tr");
-                const keyTd = document.createElement("td");
-                const valueTd = document.createElement("td");
-
-                keyTd.textContent = headers[index] || `Field ${index + 1}`; // Use header name or generic fallback
-                let displayValue = (value === null || typeof value === 'undefined') ? "" : String(value);
-
-                // Format date if it's the date field (assuming date is at index 0)
-                 if (index === 0) {
-                    displayValue = formatDate(displayValue);
-                 }
-
-                valueTd.textContent = displayValue;
-                valueTd.style.whiteSpace = 'pre-wrap'; // Allow wrapping for long values in modal
-
-                tr.appendChild(keyTd);
-                tr.appendChild(valueTd);
-                detailsTableBody.appendChild(tr);
-            });
-
-
-            const detailsActions = document.getElementById("detailsActions");
-            detailsActions.innerHTML = ''; // Clear existing buttons first
-
-            // Determine the original index of this row in the full filtered data `allData`
+             // Find the original index in allData for button actions
             const originalIndex = allData.findIndex(item => item === rowData);
 
-            // Add Approve/Reject buttons only if the status is 'waiting' (index 14)
-            if (rowData[14] && rowData[14].toString().toLowerCase() === 'waiting') {
+            // Map headers to rowData indices, handling potential length mismatch
+            headers.forEach((header, index) => {
+                // Skip internal/action columns if needed, or display all
+                 if (index >= rowData.length) return; // Avoid index out of bounds
+
+                 const tr = document.createElement("tr");
+                 const keyTd = document.createElement("td");
+                 const valueTd = document.createElement("td");
+
+                 keyTd.textContent = header;
+                 let displayValue = (rowData[index] === null || typeof rowData[index] === 'undefined') ? "" : String(rowData[index]);
+
+                 // Format date column (assuming index 0)
+                 if (index === 0) {
+                     displayValue = formatDate(displayValue);
+                 }
+
+                 valueTd.textContent = displayValue;
+
+                 tr.appendChild(keyTd);
+                 tr.appendChild(valueTd);
+                 detailsTableBody.appendChild(tr);
+            });
+
+             // Setup action buttons in the modal footer
+            const detailsActions = document.getElementById("detailsActions");
+            detailsActions.innerHTML = ''; // Clear previous buttons
+
+             // Check status (index 14) to show Approve/Reject
+            if (rowData[14] && rowData[14].toString().toLowerCase().startsWith('waiting')) {
                 const approveButton = document.createElement("button");
                 approveButton.textContent = "Approve";
-                approveButton.id = "detailsApprove";
-                // Pass the original index to openModal
-                approveButton.onclick = () => openModal('approve', originalIndex);
+                approveButton.onclick = () => openModal('approve', originalIndex); // Use the correct index
                 detailsActions.appendChild(approveButton);
 
                 const rejectButton = document.createElement("button");
                 rejectButton.textContent = "Reject";
-                rejectButton.id = "detailsReject";
-                 // Pass the original index to openModal
-                rejectButton.onclick = () => openModal('reject', originalIndex);
+                rejectButton.style.backgroundColor = '#d32f2f'; // Reject button red
+                rejectButton.onclick = () => openModal('reject', originalIndex); // Use the correct index
                 detailsActions.appendChild(rejectButton);
             }
 
-            // Always add Print and Close buttons
             const printButton = document.createElement("button");
             printButton.textContent = "Print";
             printButton.onclick = printDetails;
+            printButton.style.backgroundColor = '#6c757d'; // Grey print button
             detailsActions.appendChild(printButton);
 
             const closeButton = document.createElement("button");
             closeButton.textContent = "Close";
             closeButton.onclick = closeDetailsModal;
+             closeButton.style.backgroundColor = '#aaa'; // Lighter grey close button
             detailsActions.appendChild(closeButton);
 
-
-            document.getElementById("detailsModal").style.display = "flex"; // Show the details modal
+            document.getElementById("detailsModal").style.display = "flex";
         }
 
         function closeDetailsModal() {
             document.getElementById("detailsModal").style.display = "none";
-            selectedRowData = null; // Clear selected row data when modal closes
+            selectedRowData = null; // Clear selection
         }
 
-        // These handlers are now simplified as the logic is embedded in showRowDetails
-        // function handleApprove() {
-        //     if (!selectedRowData) return;
-        //     const originalIndex = allData.findIndex(item => item === selectedRowData);
-        //     if (originalIndex > -1) {
-        //        openModal('approve', originalIndex);
-        //     } else {
-        //         alert("Could not find the selected row in the data.");
-        //     }
-        // }
-        // function handleReject() {
-        //     if (!selectedRowData) return;
-        //      const originalIndex = allData.findIndex(item => item === selectedRowData);
-        //      if (originalIndex > -1) {
-        //         openModal('reject', originalIndex);
-        //      } else {
-        //          alert("Could not find the selected row in the data.");
-        //      }
-        // }
-
-
-        function logout() {
-            localStorage.removeItem("user"); // Clear user session data
-            window.location.href = "index.html"; // Redirect to login page (assuming it's index.html)
-        }
-
-        function printDetails() {
-            const rowData = selectedRowData; // Use the stored selected row data
-            if (!rowData || !headers || !headers.length) {
-                alert("No data available to print.");
+        // --- Action Handlers ---
+        document.getElementById("submitNote").addEventListener("click", function submitNoteHandler() {
+            const note = document.getElementById("note").value.trim();
+            if (!note) {
+                alert("Please enter a note.");
                 return;
             }
 
-            // Create HTML content for the print window
-            let html = `
-                <html>
-                <head>
-                    <title>Print Purchase Request Details</title>
-                    <style>
-                        body { font-family: Arial, sans-serif; padding: 20px; }
-                        h2 { color: #2e7d32; border-bottom: 1px solid #ccc; padding-bottom: 5px; }
-                        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
-                        th, td { padding: 8px 10px; border: 1px solid #ccc; text-align: left; word-wrap: break-word; }
-                        th { background-color: #f2f2f2; font-weight: bold; }
-                        tr:nth-child(even) { background-color: #f9f9f9; }
-                    </style>
-                </head>
-                <body>
-                    <h2>Purchase Request Details</h2>
-                    <table>
-                        <thead>
-                            <tr><th>Field</th><th>Value</th></tr>
-                        </thead>
-                        <tbody>`;
-
-            // Add rows to the print table
-            rowData.forEach((value, index) => {
-                const fieldName = headers[index] || `Field ${index + 1}`;
-                let fieldValue = (value === null || typeof value === 'undefined') ? "" : String(value);
-                 // Format date if it's the date field (assuming index 0)
-                 if (index === 0) {
-                    fieldValue = formatDate(fieldValue);
-                 }
-
-                html += `<tr>
-                            <td>${fieldName}</td>
-                            <td>${fieldValue.replace(/\n/g, '<br>')}</td> {/* Preserve line breaks */}
-                         </tr>`;
-            });
-
-            html += `
-                        </tbody>
-                    </table>
-                </body>
-                </html>
-            `;
-
-            // Open a new window and print the content
-            const printWindow = window.open('', '_blank');
-            printWindow.document.write(html);
-            printWindow.document.close(); // Necessary for some browsers
-            printWindow.focus(); // Necessary for some browsers
-            // Use timeout to ensure content is rendered before printing
-            setTimeout(() => {
-                 printWindow.print();
-                 printWindow.close();
-            }, 250);
-        }
-
-        function displayUserEmail() {
             const userData = localStorage.getItem("user");
-            if (userData) {
-                try {
-                    const parsedUser = JSON.parse(userData);
-                    const email = parsedUser.email;
-                    document.getElementById("email-display").textContent = "Logged in: " + email;
-                } catch (e) {
-                    console.error("Error parsing user data from local storage:", e);
-                    document.getElementById("email-display").textContent = "Error displaying user.";
-                    localStorage.removeItem("user"); // Clear invalid data
-                }
-            } else {
-                // If no user data, perhaps redirect to login?
-                // document.getElementById("email-display").textContent = "Not logged in.";
-                 alert("You are not logged in. Redirecting to login page.");
-                 window.location.href = "index.html"; // Redirect if not logged in
+            const email = userData ? JSON.parse(userData).email : "Unknown";
+            // Use a more standard timestamp format if possible (ISO string)
+            const now = new Date().toISOString(); // ISO format like 2025-04-13T11:33:44.123Z
+
+            if (!selectedRowData) {
+                alert("Error: No row selected for submission.");
+                return;
             }
+
+            const requestNumber = selectedRowData[13]; // Request No at index 13
+
+            if (requestNumber === null || typeof requestNumber === 'undefined' || String(requestNumber).trim() === '') {
+                alert("Error: Could not determine the Request Number for the selected row.");
+                return;
+            }
+
+            console.log(`Submitting Action: ${currentAction}, Request No: ${requestNumber}, By: ${email}`);
+            showLoading(true);
+            displayError(""); // Clear previous errors
+
+            fetch(SHEET_URL, {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json', // Important for Apps Script e.postData.contents
+                 },
+                // Send necessary data as JSON payload
+                body: JSON.stringify({
+                    action: currentAction,
+                    requestNumber: String(requestNumber).trim(),
+                    email: email,
+                    timestamp: formatDate(now), // Send formatted timestamp if preferred by sheet
+                    note: note
+                })
+            })
+            .then(response => {
+                if (!response.ok) {
+                     return response.json().then(errData => { // Try parsing error JSON from Apps Script
+                          throw new Error(`HTTP error! Status: ${response.status}. Message: ${errData.message || 'No server message.'}`);
+                     }).catch(() => { // Fallback if error response isn't JSON
+                          throw new Error(`HTTP error! Status: ${response.status}. Could not parse error response.`);
+                     });
+                }
+                 // Check content type before assuming JSON
+                 const contentType = response.headers.get("content-type");
+                 if (contentType && contentType.indexOf("application/json") !== -1) {
+                    return response.json();
+                 } else {
+                    // Handle non-JSON success response? Unlikely with current script.
+                    return response.text().then(text => ({ result: 'success', message: `Received non-JSON response: ${text}` }));
+                 }
+            })
+            .then(data => {
+                 showLoading(false);
+                 if (data.result === "success") {
+                     alert("Submitted successfully! " + (data.message || ''));
+                     closeModal();
+                     fetchData(); // Refresh data
+                 } else {
+                     // Display error message from server response
+                     throw new Error(data.message || "Submission failed with unknown server error.");
+                 }
+            })
+            .catch(err => {
+                 showLoading(false);
+                 console.error("Submit Error:", err);
+                 displayError("Submission Error: " + err.message); // Show error in the error div
+            });
+        });
+
+        function exportToExcel() {
+            // Use a library like SheetJS (xlsx) for robust export, or simple HTML table export as fallback
+            const table = document.getElementById("data-table");
+            if (!table || allData.length === 0) {
+                alert('No data available to export.');
+                return;
+            }
+
+            // Basic HTML table export (limited formatting)
+            let tableHTML = "<table><thead>" + table.querySelector("thead").innerHTML + "</thead><tbody>";
+            // Use all filtered data, not just the current page
+            allData.forEach(row => {
+                 tableHTML += "<tr>";
+                 // Logic similar to renderTable to get correct columns/order
+                 let cellsToExport = [];
+                 if (currentStatus === 'waiting') {
+                     cellsToExport.push(row[13]); // Request No
+                     columnsToShow.forEach(col => cellsToExport.push(row[col.index]));
+                     cellsToExport.push(""); // Empty Action cell
+                 } else {
+                     columnsToShow.forEach(col => cellsToExport.push(row[col.index]));
+                     cellsToExport.push(row[14]); // Status string
+                 }
+                 cellsToExport.forEach((cell, idx) => {
+                     let cellValue = (cell === null || typeof cell === 'undefined') ? "" : String(cell);
+                     // Format date if needed (check based on column index)
+                     const isDateColumn = (currentStatus === 'waiting' && idx === 1) || (currentStatus !== 'waiting' && idx === 0);
+                     if (isDateColumn) {
+                         cellValue = formatDate(cellValue);
+                     }
+                     tableHTML += `<td>${cellValue}</td>`;
+                 });
+                 tableHTML += "</tr>";
+            });
+             tableHTML += "</tbody></table>";
+
+
+            const filename = `purchase_requests_${currentStatus}_${new Date().toISOString().slice(0,10)}.xls`;
+            const mimeType = 'application/vnd.ms-excel';
+
+            // Create blob for potentially better compatibility
+            const blob = new Blob([tableHTML], { type: mimeType });
+            const url = URL.createObjectURL(blob);
+
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url); // Clean up blob URL
         }
 
-        // --- Session Timeout Logic ---
+
+        function printDetails() {
+             const rowData = selectedRowData;
+             if (!rowData || !headers || !headers.length) {
+                 alert("No details selected to print.");
+                 return;
+             }
+             // (Print logic as previously defined - seems okay)
+              let html = `
+                <html><head><title>Print Purchase Request Details</title><style>
+                    body { font-family: Arial, sans-serif; padding: 20px; font-size: 12pt; }
+                    h2 { color: #2e7d32; border-bottom: 1px solid #ccc; padding-bottom: 5px; }
+                    table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+                    th, td { padding: 8px 10px; border: 1px solid #ccc; text-align: left; vertical-align: top; word-wrap: break-word; }
+                    th { background-color: #f2f2f2; font-weight: bold; width: 180px; }
+                    td { white-space: pre-wrap; } /* Preserve formatting */
+                </style></head><body><h2>Purchase Request Details</h2><table><thead><tr><th>Field</th><th>Value</th></tr></thead><tbody>`;
+
+            headers.forEach((header, index) => {
+                 if (index < rowData.length) { // Ensure index exists in data
+                    const fieldName = header;
+                    let fieldValue = (rowData[index] === null || typeof rowData[index] === 'undefined') ? "" : String(rowData[index]);
+                    if (index === 0) fieldValue = formatDate(fieldValue); // Format date
+                    html += `<tr><td>${fieldName}</td><td>${fieldValue}</td></tr>`;
+                 }
+            });
+             html += `</tbody></table></body></html>`;
+
+             const printWindow = window.open('', '_blank');
+             printWindow.document.write(html);
+             printWindow.document.close();
+             printWindow.focus();
+              // Delay print slightly to allow rendering
+             setTimeout(() => {
+                 try {
+                      printWindow.print();
+                      printWindow.close();
+                 } catch (e) {
+                      console.error("Print failed:", e);
+                      printWindow.close(); // Close even if print fails
+                 }
+             }, 500);
+        }
+
+        function logout() {
+            localStorage.removeItem("user");
+            window.location.href = "index.html"; // Redirect to login page
+        }
+
+        // --- Session Management ---
         let sessionTimeout, warningTimeout, countdownInterval;
         const sessionLimit = 30 * 60 * 1000; // 30 minutes
-        const warningTimeBeforeExpiry = 2 * 60 * 1000; // Show warning 2 minutes before expiry
-        const warningDisplayTime = sessionLimit - warningTimeBeforeExpiry; // Time until warning appears
+        const warningTimeBeforeExpiry = 2 * 60 * 1000; // 2 minutes warning
+        const warningDisplayTime = sessionLimit - warningTimeBeforeExpiry;
 
         function resetSessionTimers() {
-            // Clear existing timers
             clearTimeout(sessionTimeout);
             clearTimeout(warningTimeout);
             clearInterval(countdownInterval);
+            const warningElement = document.getElementById("session-warning");
+            if (warningElement) warningElement.style.display = "none";
 
-             // Hide warning if visible
-             const warningElement = document.getElementById("session-warning");
-             if (warningElement && warningElement.style.display === "flex") {
-                 warningElement.style.display = "none";
-             }
-
-             // Set new timers
-             // Timer to show the warning popup
-             warningTimeout = setTimeout(showCountdownWarning, warningDisplayTime);
-
-            // Timer to actually log out
+            warningTimeout = setTimeout(showCountdownWarning, warningDisplayTime);
             sessionTimeout = setTimeout(() => {
                 alert("Session expired due to inactivity.");
-                logout(); // Call the logout function
+                logout();
             }, sessionLimit);
-
-             // console.log("Session timers reset."); // Optional debug log
+             // console.log("Session timers reset.");
         }
 
         function showCountdownWarning() {
             const warningElement = document.getElementById("session-warning");
-            if (!warningElement) return; // Should not happen, but check anyway
-
-            warningElement.style.display = "flex"; // Show the warning overlay
-
-            let secondsLeft = Math.floor(warningTimeBeforeExpiry / 1000); // Countdown seconds
+            if (!warningElement) return;
+            warningElement.style.display = "flex";
+            let secondsLeft = Math.floor(warningTimeBeforeExpiry / 1000);
             const timerSpan = document.getElementById("countdown-timer");
-            if (timerSpan) timerSpan.textContent = secondsLeft; // Initial display
+            if(timerSpan) timerSpan.textContent = secondsLeft;
 
-            // Update countdown every second
             countdownInterval = setInterval(() => {
                 secondsLeft--;
-                if (timerSpan) timerSpan.textContent = secondsLeft;
-
+                if(timerSpan) timerSpan.textContent = secondsLeft;
                 if (secondsLeft <= 0) {
                     clearInterval(countdownInterval);
-                    // Timer already expired, logout function will handle alert/redirect
+                    // Timeout will handle actual logout
                 }
             }, 1000);
         }
 
-        // Add event listeners to reset timers on user activity
         ["click", "mousemove", "keypress", "scroll", "touchstart"].forEach(evt =>
-            document.addEventListener(evt, resetSessionTimers, { passive: true }) // Use passive listener where appropriate
+            document.addEventListener(evt, resetSessionTimers, { passive: true })
         );
-        // --- End Session Timeout Logic ---
 
-
-        // Initial setup when the page loads
-        window.addEventListener("DOMContentLoaded", function() {
-             // Check login status first
-             displayUserEmail();
-             // If displayUserEmail doesn't redirect, proceed to fetch data and set timers
-             if (localStorage.getItem("user")) {
-                // Set the default 'waiting' filter as active visually
-                document.querySelector('.submenu li[onclick*="waiting"]').classList.add('active');
-                fetchData(); // Initial data fetch (will use default 'waiting' status)
-                resetSessionTimers(); // Start session timers on load
+         function displayUserEmail() {
+             const userData = localStorage.getItem("user");
+             if (userData) {
+                 try {
+                     const parsedUser = JSON.parse(userData);
+                     document.getElementById("email-display").textContent = parsedUser.email;
+                     return true; // User is logged in
+                 } catch (e) {
+                     console.error("Error parsing user data:", e);
+                     localStorage.removeItem("user"); // Clear corrupted data
+                 }
              }
-        });
+             // If no valid user data, redirect to login
+             alert("You are not logged in or session is invalid. Redirecting...");
+             window.location.href = "index.html";
+             return false; // User is not logged in
+         }
 
-         // Ensure dynamically added elements like session warning have styles applied
-         // (The @keyframes are already in the <style> tag, which is good)
+
+        // --- Page Initialization ---
+        window.addEventListener("DOMContentLoaded", () => {
+            if (displayUserEmail()) { // Check login status first
+                 document.querySelector('.submenu li[onclick*="waiting"]').classList.add('active'); // Set default active filter
+                 fetchData(); // Initial data load
+                 resetSessionTimers(); // Start session timers
+            }
+            // Add event listener to modal backdrop to close modals (optional)
+             document.querySelectorAll('.modal').forEach(modal => {
+                 modal.addEventListener('click', (event) => {
+                     if (event.target === modal) { // Clicked on backdrop, not content
+                         closeModal();
+                         closeDetailsModal();
+                     }
+                 });
+             });
+        });
 
     </script>
 </body>
