@@ -11,17 +11,15 @@
             margin: 0;
             display: flex;
             height: 100vh;
-            color: #333; /* Default text color for better readability on white backgrounds */
         }
 
         .sidebar {
-            width: 120px; /* Slightly wider */
+            width: 120px;
             background-color: #2e7d32;
             color: white;
             padding: 20px;
             box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
             position: relative;
-            flex-shrink: 0; /* Prevent sidebar from shrinking */
         }
 
         .menu-section {
@@ -30,15 +28,12 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px 0; /* Add some padding */
-            border-bottom: 1px solid #1b5e20; /* Separator */
         }
 
         .submenu {
             list-style: none;
-            padding-left: 15px; /* Indent submenu */
-            margin-top: 10px;
-            display: none; /* Hidden by default */
+            padding-left: 20px;
+            display: none;
         }
 
         .submenu.show {
@@ -46,134 +41,87 @@
         }
 
         .submenu li {
-            padding: 8px 5px; /* More padding */
+            padding: 5px 0;
             cursor: pointer;
-            border-radius: 3px;
-            transition: background-color 0.2s ease;
         }
-         .submenu li:hover {
-             background-color: #388e3c; /* Hover effect */
-         }
 
-        .submenu li.active { /* Style for active item */
+        .submenu li.active, .menu-section.active {
             background-color: #1b5e20;
-            font-weight: bold;
         }
 
         .content {
             flex-grow: 1;
-            padding: 25px; /* More padding */
-            overflow-y: auto; /* Allow content scrolling */
-            background-color: #f4f4f4; /* Lighter background for content area */
+            padding: 20px;
+            overflow-y: auto;
         }
 
         h1 {
-            color: #1f1f1f; /* Darker heading */
-            border-bottom: 2px solid #2e7d32;
-            padding-bottom: 10px;
-            margin-top: 0;
+            color: white;
         }
-
-        /* Search and Action Bar */
-        .action-bar {
-            margin-bottom: 20px;
-            padding: 15px;
-            background-color: #ffffff;
-            border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            display: flex;
-            align-items: center;
-            flex-wrap: wrap; /* Allow wrapping on smaller screens */
-        }
-        .action-bar input[type="text"] {
-            padding: 10px; /* Larger inputs */
-            width: 220px; /* Wider inputs */
-            margin-right: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            margin-bottom: 10px; /* Spacing for wrap */
-        }
-         .action-bar button {
-            padding: 10px 15px; /* Larger buttons */
-            margin: 5px; /* Consistent margin */
-            border: none; /* Remove border */
-            border-radius: 4px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-         }
 
         table {
             width: 100%;
-            border-collapse: collapse; /* Cleaner look */
-            margin-top: 0; /* Remove margin as action-bar provides space */
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.15); /* Softer shadow */
+            max-width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
             background-color: white;
-            font-size: 14px; /* Slightly larger font */
+            cursor: pointer;
         }
 
         th, td {
-            padding: 10px 12px; /* More padding */
-            border: 1px solid #ddd; /* Lighter border */
+            padding: 6px;
+            border: 1px solid #ccc;
             text-align: left;
             word-wrap: break-word;
-           /* max-width removed for better responsiveness, handled by table layout */
+            max-width: 100px;
             overflow: hidden;
-            text-overflow: ellipsis; /* Add ellipsis for overflow */
         }
-         td {
-             max-width: 150px; /* Limit width and use ellipsis */
-             white-space: nowrap; /* Prevent wrapping */
-         }
-         td.wrap { /* Add class for specific cells needing wrap */
-             white-space: normal;
-             word-wrap: break-word;
-         }
 
         th {
             background-color: #2e7d32;
             color: white;
-            white-space: nowrap; /* Prevent header text wrap */
         }
 
-        tbody tr:nth-child(odd) {
-            background-color: #f9f9f9; /* Standard striping */
+        tr:nth-child(odd) {
+            background-color: #f0fff0;
         }
 
-        tbody tr:nth-child(even) {
-            background-color: #ffffff;
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
         }
 
-        tbody tr:hover {
-            background-color: #e9f5e9 !important; /* Light green hover */
-            cursor: pointer;
+        tr.selected {
+            background-color: #c8e6c9 !important;
         }
 
-        /* Button styling (general) */
+        input[type="text"] {
+            padding: 8px;
+            width: 200px;
+            margin-right: 10px;
+        }
+
         button {
+            padding: 6px 12px;
+            margin: 5px;
             cursor: pointer;
             background-color: #2e7d32;
             color: white;
-            border: none; /* Remove border */
+            border: 2px solid white;
             border-radius: 4px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-            transition: background-color 0.2s ease, box-shadow 0.2s ease;
-            padding: 8px 15px; /* Default padding */
-             margin: 5px;
+            transition: box-shadow 0.3s ease;
         }
+
         button:hover {
             background-color: #388e3c;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
         }
-        button:disabled {
-            background-color: #a5d6a7; /* Lighter green for disabled */
-            cursor: not-allowed;
-            box-shadow: none;
-        }
-         button:focus {
-             outline: 2px solid #1b5e20; /* Focus indicator */
-             outline-offset: 2px;
-         }
 
-        /* Modal Styles */
+        button:focus {
+            outline: none;
+        }
+
         .modal {
             display: none;
             position: fixed;
@@ -181,132 +129,110 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.6); /* Darker overlay */
+            background-color: rgba(0, 0, 0, 0.5);
             justify-content: center;
             align-items: center;
-            z-index: 1050; /* Higher z-index */
-            padding: 20px; /* Padding for smaller screens */
+            z-index: 1000;
         }
 
         .modal-content {
             background: white;
-            padding: 25px;
-            border-radius: 8px; /* More rounded */
-            max-width: 700px; /* Wider modal */
-            width: 95%;
+            padding: 20px;
+            border-radius: 5px;
+            max-width: 600px;
+            width: 90%;
             overflow-y: auto;
-            max-height: 90vh; /* Increased max height */
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            max-height: 80vh;
         }
-         .modal-content h3 {
-             margin-top: 0;
-             color: #2e7d32;
-             border-bottom: 1px solid #eee;
-             padding-bottom: 10px;
-         }
 
         #loading {
             display: none;
-            background-color: rgba(0, 0, 0, 0.7); /* Slightly darker loading */
+            background-color: rgba(0, 0, 0, 0.6);
             color: white;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
+            display: flex;
             justify-content: center;
             align-items: center;
             font-size: 24px;
-            z-index: 1100; /* Above modals */
+            z-index: 1000;
         }
 
         .error-message {
-            color: #d32f2f; /* Error red */
-            font-weight: bold;
-            margin-top: 10px;
-            padding: 10px;
-            background-color: #ffebee; /* Light red background */
-            border: 1px solid #d32f2f;
-            border-radius: 4px;
+            color: red;
         }
 
         .pagination {
-            margin-top: 20px; /* More space above pagination */
-            text-align: center; /* Center pagination */
-        }
-        .pagination button {
-            margin: 0 4px; /* Spacing between page buttons */
+            margin-top: 10px;
         }
 
-        /* Details Modal Table */
+        .pagination button {
+            margin-right: 5px;
+        }
+
         #details-table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 15px;
-            background-color: #fff; /* White background */
+            margin-top: 10px;
+            background-color: #f9f9f9;
             border: 1px solid #ccc;
         }
+
         #details-table th, #details-table td {
-            padding: 10px;
-            border: 1px solid #eee; /* Lighter internal borders */
+            padding: 8px;
+            border: 1px solid #ccc;
             text-align: left;
-            vertical-align: top; /* Align content top */
         }
-        #details-table th { /* Field names */
-            background-color: #f5f5f5; /* Light grey */
-            font-weight: bold;
-            width: 150px; /* Fixed width for field names */
-            white-space: nowrap;
+
+        #details-table th {
+            background-color: #2e7d32;
+            color: white;
         }
-         #details-table td { /* Values */
-             word-wrap: break-word; /* Allow wrapping */
-             white-space: pre-wrap; /* Preserve whitespace/newlines */
-         }
 
         .details-actions {
             display: flex;
             justify-content: flex-end;
-            margin-top: 20px; /* More space */
-            padding-top: 15px;
-            border-top: 1px solid #eee;
+            margin-top: 10px;
         }
+
         .details-actions button {
             margin-left: 10px;
-            min-width: 80px; /* Minimum button width */
         }
 
-        /* Top Bar Elements */
-         .top-bar {
-             position: fixed; /* Fixed position */
-             top: 0;
-             right: 0;
-             padding: 10px 20px;
-             background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent */
-             border-bottom-left-radius: 5px;
-             z-index: 1000;
-             display: flex;
-             align-items: center;
-         }
+        #data-table tbody tr:hover {
+            background-color: #d4edda;
+            cursor: pointer;
+        }
 
         #email-display {
-            /* position removed, handled by top-bar */
+            position: absolute;
+            top: 10px;
+            right: 100px;
             color: white;
-            font-size: 14px; /* Adjusted size */
-            margin-right: 15px;
+            font-size: 16px;
+            z-index: 1000;
         }
 
         #logoutButton {
-            /* position removed, handled by top-bar */
-            padding: 6px 12px; /* Smaller logout button */
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 8px 15px;
             background-color: #d32f2f;
-            font-size: 14px;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
         }
+
         #logoutButton:hover {
             background-color: #c62828;
         }
 
-
-        /* Session Warning Styles */
         #session-warning {
             display: none;
             position: fixed;
@@ -314,7 +240,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.85); /* Darker overlay */
+            background-color: rgba(0, 0, 0, 0.8);
             color: white;
             z-index: 10000;
             justify-content: center;
@@ -322,34 +248,34 @@
             flex-direction: column;
             text-align: center;
         }
+
         #session-warning img {
-            width: 120px; /* Smaller logo */
+            width: 150px;
             height: auto;
-            margin-bottom: 25px;
-            animation: pulse 1.8s infinite; /* Slightly faster pulse */
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
         }
+
         #session-warning .countdown {
-            font-size: 22px; /* Adjusted size */
-            margin-bottom: 15px;
+            font-size: 24px;
         }
-         #session-warning h2 {
-            font-size: 28px;
-            margin-bottom: 10px;
-         }
 
         @keyframes pulse {
-            0% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.08); opacity: 0.85; } /* Adjusted scale/opacity */
-            100% { transform: scale(1); opacity: 1; }
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            50% {
+                transform: scale(1.1);
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
         }
-
-         /* Add specific class for wrapping long text if needed */
-        .wrap-text {
-            white-space: normal !important;
-            word-wrap: break-word !important;
-            max-width: none !important; /* Override max-width if set */
-         }
-
     </style>
 </head>
 <body>
@@ -358,47 +284,44 @@
             Requests <span id="arrow">&#9654;</span>
         </div>
         <ul class="submenu" id="submenu">
-            <li onclick="filterByStatus('waiting', this)" class="active">Waiting</li>
+            <li onclick="filterByStatus('waiting', this)">Waiting</li>
             <li onclick="filterByStatus('approved', this)">Approved</li>
             <li onclick="filterByStatus('rejected', this)">Rejected</li>
             <li onclick="filterByStatus('all', this)">All</li>
         </ul>
     </div>
-
     <div class="content">
         <div id="loading">Loading...</div>
         <h1>Purchase Requests</h1>
-
-        <div class="action-bar">
-            <input type="text" id="searchDept" placeholder="Search by Department">
-            <input type="text" id="searchMobile" placeholder="Search by Mobile">
-            <button onclick="fetchData()">Search</button>
-            <button onclick="exportToExcel()">Export to Excel</button>
-        </div>
-
+        <input type="text" id="searchDept" placeholder="Search by Department">
+        <input type="text" id="searchMobile" placeholder="Search by Mobile">
+        <button onclick="fetchData()">Search</button>
+        <button onclick="exportToExcel()">Export to Excel</button>
         <table id="data-table">
             <thead>
                 <tr>
-                    <!-- Headers dynamically generated -->
+                    <th>Date</th>
+                    <th>Name</th>
+                    <th>Department</th>
+                    <th>Mobile</th>
+                    <th>Email</th>
+                    <th>Item</th>
+                    <th>Specification</th>
+                    <th>Estimated Cost</th>
+                    <th>Total Cost</th>
+                    <th>Justification</th>
+                    <th>Vendor</th>
+                    <th>Contact</th>
+                    <th>Reason</th>
+                    <th id="actionHeader">Action</th>
                 </tr>
             </thead>
-            <tbody>
-                <!-- Table rows dynamically generated -->
-            </tbody>
+            <tbody></tbody>
         </table>
-
         <div class="pagination" id="pagination"></div>
-        <div id="error-message" class="error-message" style="display: none;"></div> <!-- Hidden initially -->
+        <div id="error-message" class="error-message"></div>
     </div>
 
-    <!-- Top right elements -->
-    <div class="top-bar">
-         <div id="email-display"></div>
-         <button id="logoutButton" onclick="logout()">Logout</button>
-    </div>
-
-
-    <!-- Details Modal -->
     <div id="detailsModal" class="modal">
         <div class="modal-content">
             <h3>Request Details</h3>
@@ -410,51 +333,47 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- Details populated here -->
                 </tbody>
             </table>
             <div class="details-actions" id="detailsActions">
-                <!-- Buttons dynamically added -->
+                <button id="detailsApprove" onclick="handleApprove()">Approve</button>
+                <button id="detailsReject" onclick="handleReject()">Reject</button>
+                <button onclick="printDetails()">Print</button>
+                <button onclick="closeDetailsModal()">Close</button>
             </div>
         </div>
     </div>
 
-    <!-- Note Modal -->
     <div id="modal" class="modal">
         <div class="modal-content">
             <h3>Add Note</h3>
-            <textarea id="note" rows="5" style="width: 98%; margin-bottom: 15px; padding: 8px; border: 1px solid #ccc; border-radius: 4px;"></textarea><br>
-            <div style="text-align: right;"> <!-- Align buttons right -->
-                 <button onclick="closeModal()" style="background-color: #aaa;">Cancel</button>
-                 <button id="submitNote">Submit</button>
-            </div>
+            <textarea id="note" rows="4" style="width:100%;"></textarea><br>
+            <button id="submitNote">Submit</button>
+            <button onclick="closeModal()">Cancel</button>
+        </div>
+    </div>
+    <div id="email-display"></div>
+    <button id="logoutButton" onclick="logout()">Logout</button>
+
+    <div id="session-warning">
+        <img src="https://drive.google.com/uc?export=view&id=1otD1-q33yGpG8Y4oD87HT-E3DmmLApUO" alt="Logo">
+        <div class="countdown">
+            ⏳ <span id="countdown-timer">120</span> seconds left! Stay active 😃🎉🥳
         </div>
     </div>
 
-    <!-- Session Timeout Warning -->
-    <div id="session-warning">
-         <!-- Content dynamically added by JS -->
-         <img src="https://drive.google.com/uc?export=view&id=1otD1-q33yGpG8Y4oD87HT-E3DmmLApUO" alt="Logo">
-         <h2>Session Expiring Soon!</h2>
-         <div class="countdown">
-             ⏳ <span id="countdown-timer">120</span> seconds left! Stay active 😃🎉🥳
-         </div>
-    </div>
-
     <script>
-        // Ensure this URL matches your *latest* Apps Script Web App Deployment URL
-        const SHEET_URL = "https://script.google.com/macros/s/AKfycbyuWi3UgL5Z9Vz43zUwfVA-bvjLuMz8EgvMGsitH0MLFJ2G1kW6iYZznQW2tx0PkjeF/exec";
-
-        let allData = []; // Stores raw data rows fetched (filtered by status)
+        const SHEET_URL = "https://script.google.com/macros/s/AKfycby3bc7aC01Nbun8DMiaDPQCEbzLbLjK4ay4mFZejT1N9VA3mHAdSP6aeVlPCdvPipsz/exec";
+        let allData = [];
         let currentPage = 1;
-        let currentStatus = 'waiting'; // Default status filter
+        let currentStatus = 'waiting';
         const pageSize = 10;
-        let currentAction = ''; // 'approve' or 'reject'
+        let currentAction = '';
+        let currentRow = 0;
         let menuOpen = false;
-        let headers = []; // Stores header row from sheet
-        let selectedRowData = null; // Stores data array of the currently selected row
+        let headers = [];
+        let selectedRowData = null;
 
-        // --- UI Functions ---
         function toggleMenu() {
             const submenu = document.getElementById("submenu");
             const arrow = document.getElementById("arrow");
@@ -463,74 +382,48 @@
             arrow.innerHTML = menuOpen ? "&#9660;" : "&#9654;";
         }
 
-        function showLoading(show) {
-             document.getElementById("loading").style.display = show ? "flex" : "none";
-        }
-
-        function displayError(message) {
-            const errorDiv = document.getElementById("error-message");
-            errorDiv.textContent = message;
-            errorDiv.style.display = message ? "block" : "none"; // Show only if there's a message
-        }
-
-        // --- Data Handling Functions ---
         function formatDate(inputDate) {
-            if (!inputDate) return ""; // Handle empty input
             const date = new Date(inputDate);
-            if (isNaN(date.getTime())) return String(inputDate); // Return original if invalid date
+            if (isNaN(date)) return inputDate;
             const options = { day: '2-digit', month: 'short', year: 'numeric', hour: 'numeric', minute: '2-digit', hour12: true };
-            try {
-                 return date.toLocaleString('en-US', options);
-            } catch (e) {
-                 console.warn("Could not format date:", inputDate, e);
-                 return String(inputDate); // Fallback
-            }
+            return date.toLocaleString('en-US', options);
         }
 
         function fetchData() {
             const dept = document.getElementById("searchDept").value.trim();
             const mobile = document.getElementById("searchMobile").value.trim();
-            showLoading(true);
-            displayError(""); // Clear previous errors
-            document.querySelector("#data-table tbody").innerHTML = ""; // Clear table
-            document.getElementById("pagination").innerHTML = ""; // Clear pagination
+            document.getElementById("loading").style.display = "flex";
+            document.getElementById("error-message").textContent = "";
 
-            // Append search params only if they have values
-            const params = new URLSearchParams();
-            if (dept) params.append('department', dept);
-            if (mobile) params.append('mobile', mobile);
-            const url = `${SHEET_URL}?${params.toString()}`;
+            const url = `${SHEET_URL}?department=${encodeURIComponent(dept)}&mobile=${encodeURIComponent(mobile)}`;
 
             fetch(url)
                 .then(response => {
                     if (!response.ok) {
-                        return response.text().then(text => { throw new Error(`HTTP error! Status: ${response.status}. Message: ${text || 'No additional message.'}`); });
+                        throw new Error(`HTTP error! Status: ${response.status}`);
                     }
                     return response.json();
                 })
                 .then(data => {
-                    if (!Array.isArray(data) || data.length === 0) throw new Error("No data received or invalid format.");
-                    if (data && data.error) throw new Error("Error from server: " + data.error); // Check for explicit error property
-
-                    headers = data[0];
-                    let rawData = data.slice(1);
-
-                    // Filter by status *before* pagination
-                    // Assumes status is at index 14 (Column O)
-                    if (currentStatus !== 'all') {
-                        allData = rawData.filter(row => row[14] && row[14].toString().toLowerCase().startsWith(currentStatus));
-                    } else {
-                        allData = rawData;
+                    console.log("Fetched Data:", data);
+                    if (data && data.error) {
+                        document.getElementById("error-message").textContent = "Error from server: " + data.error;
+                        document.getElementById("loading").style.display = "none";
+                        return;
                     }
-
+                    allData = data.slice(1);
+                    headers = data[0];
+                    if (currentStatus !== 'all') {
+                        allData = allData.filter(row => row[14]?.toLowerCase() === currentStatus);
+                    }
                     currentPage = 1;
                     renderTable();
-                    showLoading(false);
+                    document.getElementById("loading").style.display = "none";
                 })
                 .catch(error => {
                     console.error("Fetch error:", error);
-                    displayError("Error fetching data: " + error.message);
-                    showLoading(false);
+                    document.getElementById("error-message").textContent = "Error: " + error.message;
+                    document.getElementById("loading").style.display = "none";
                 });
         }
 
@@ -538,10 +431,9 @@
             currentStatus = status;
             document.querySelectorAll('.submenu li').forEach(li => li.classList.remove('active'));
             el.classList.add('active');
-            fetchData(); // Refetch data
+            fetchData();
         }
 
-        // --- Table and Pagination Rendering ---
         function renderTable() {
             const tbody = document.querySelector("#data-table tbody");
             tbody.innerHTML = "";
@@ -549,99 +441,59 @@
             const end = start + pageSize;
             const pageData = allData.slice(start, end);
 
-            // Define which columns to display and their headers
-            // Assuming headers maps directly to indices [0..N]
-            // Indices based on Apps Script: Date=0, Name=1, Dept=2, Mobile=3, Email=4, Item=5, Spec=6, EstCost=7, TotalCost=8, Just=9, Vendor=10, Contact=11, Reason=12, ReqNo=13, Status=14, ActEmail=15, ActTime=16, ActNote=17
-             const columnsToShow = [
-                { index: 0, header: "Date", needsFormat: true },
-                { index: 1, header: "Name" },
-                { index: 2, header: "Department" },
-                { index: 3, header: "Mobile" },
-                { index: 4, header: "Email", wrap: true }, // Allow wrap for email
-                { index: 5, header: "Item" },
-                { index: 6, header: "Specification", wrap: true }, // Allow wrap
-                { index: 7, header: "Est Cost" },
-                { index: 8, header: "Total Cost" },
-                { index: 9, header: "Justification", wrap: true }, // Allow wrap
-                { index: 10, header: "Vendor" },
-                { index: 11, header: "Contact" },
-                { index: 12, header: "Reason", wrap: true }, // Allow wrap
-                // Request No (13) and Status/Action (14) are handled specially below
-            ];
+            const tableHeaders = currentStatus === 'waiting'
+                ? ["Request No", "Date", "Name", "Department", "Mobile", "Email", "Item", "Specification", "Estimated Cost", "Total Cost", "Justification", "Vendor", "Contact", "Reason", "Action"]
+                : ["Date", "Name", "Department", "Mobile", "Email", "Item", "Specification", "Estimated Cost", "Total Cost", "Justification", "Vendor", "Contact", "Reason", "Action"];
 
-            let displayHeaders = [];
-            if (currentStatus === 'waiting') {
-                // Add Request No first for 'waiting' view
-                displayHeaders = ["Request No", ...columnsToShow.map(c => c.header), "Action"];
-            } else {
-                displayHeaders = [...columnsToShow.map(c => c.header), "Status"]; // Show full status string
-            }
-
-            // Render Headers
             const thead = document.querySelector("#data-table thead tr");
             thead.innerHTML = "";
-            displayHeaders.forEach(headerText => {
+            tableHeaders.forEach(headerText => {
                 const th = document.createElement("th");
                 th.textContent = headerText;
                 thead.appendChild(th);
             });
 
-            // Render Rows
-            pageData.forEach((row) => {
+            pageData.forEach((row, index) => {
                 const tr = document.createElement("tr");
-                // Find index in full filtered list to pass to button handlers if needed, although passing `row` directly is better
-                 const originalIndex = allData.findIndex(item => item === row);
+                tr.dataset.row = JSON.stringify(row);
+                tr.addEventListener('click', () => showRowDetails(row));
 
-                tr.addEventListener('click', () => showRowDetails(row)); // Pass the full row data
+                let cellValues;
+                if (currentStatus === 'waiting') {
+                    cellValues = [row[13], ...row.slice(0, 13)]; // request number is in index 13
+                } else {
+                    cellValues = row.slice(0, 13);
+                }
 
-                let cellsToRender = [];
-                 if (currentStatus === 'waiting') {
-                    cellsToRender.push({ value: row[13] }); // Request No
-                    columnsToShow.forEach(col => cellsToRender.push({ value: row[col.index], needsFormat: col.needsFormat, wrap: col.wrap }));
-                 } else {
-                    columnsToShow.forEach(col => cellsToRender.push({ value: row[col.index], needsFormat: col.needsFormat, wrap: col.wrap }));
-                 }
-
-
-                cellsToRender.forEach(cellInfo => {
+                cellValues.forEach((cell, idx) => {
                     const td = document.createElement("td");
-                    let cellValue = (cellInfo.value === null || typeof cellInfo.value === 'undefined') ? "" : String(cellInfo.value);
-
-                    if (cellInfo.needsFormat) {
-                         cellValue = formatDate(cellValue);
+                    let cellContent = String(cell);
+                    if (cellContent.length > 100) {
+                        cellContent = cellContent.substring(0, 100) + "...";
                     }
-
-                    td.textContent = cellValue;
-                    td.title = cellValue; // Show full text on hover
-
-                    if (cellInfo.wrap) {
-                       // For columns needing wrap, we override the nowrap default
-                       // Note: We'll use CSS max-width and text-overflow, letting wrap happen naturally if needed via a class later if pure nowrap isn't sufficient.
-                       // For now, rely on ellipsis + title tooltip. Add wrap class if needed.
-                       // td.classList.add('wrap-text');
-                    }
-
+                    td.textContent = idx === 1 && currentStatus !== 'waiting' ? formatDate(cell) : cellContent;
+                    td.textContent = idx === 1 && currentStatus === 'waiting' ? formatDate(cell) : cellContent;
                     tr.appendChild(td);
                 });
 
-                // Add Action/Status Cell
-                const actionTd = document.createElement("td");
-                const statusString = row[14] || ''; // Status/Action string at index 14
-
+                const td = document.createElement("td");
                 if (currentStatus === 'waiting') {
-                    actionTd.style.whiteSpace = 'nowrap'; // Prevent buttons wrapping
-                    actionTd.innerHTML = `
-                        <button onclick="event.stopPropagation(); openModal('approve', ${originalIndex})">Approve</button>
-                        <button onclick="event.stopPropagation(); openModal('reject', ${originalIndex})" style="background-color: #d32f2f;">Reject</button>
+                    td.innerHTML = `
+                        <button onclick="openModal('approve', ${start + index + 1})">Approve</button>
+                        <button onclick="openModal('reject', ${start + index + 1})">Reject</button>
                     `;
+                } else if (currentStatus === 'all') {
+                    let actionContent = row[14] || '';
+                    if (actionContent.length > 100) {
+                        actionContent = actionContent.substring(0, 100) + "...";
+                    }
+                    td.textContent = actionContent;
                 } else {
-                    actionTd.textContent = statusString;
-                    actionTd.title = statusString; // Tooltip for potentially long status
+                    td.textContent = '';
                 }
-                tr.appendChild(actionTd);
+                tr.appendChild(td);
                 tbody.appendChild(tr);
             });
-
             renderPagination();
         }
 
@@ -649,128 +501,126 @@
             const pagination = document.getElementById("pagination");
             pagination.innerHTML = "";
             const totalPages = Math.ceil(allData.length / pageSize);
-
-            if (totalPages <= 1) return;
-
-            // Add Previous button
-            const prevBtn = document.createElement("button");
-            prevBtn.textContent = "« Prev";
-            prevBtn.disabled = (currentPage === 1);
-            prevBtn.onclick = () => { if (currentPage > 1) { currentPage--; renderTable(); } };
-            pagination.appendChild(prevBtn);
-
-            // Add Page number buttons (simplified view for many pages)
-            let startPage = Math.max(1, currentPage - 2);
-            let endPage = Math.min(totalPages, currentPage + 2);
-
-            if (startPage > 1) pagination.appendChild(document.createTextNode("... "));
-            for (let i = startPage; i <= endPage; i++) {
-                 const btn = document.createElement("button");
-                 btn.textContent = i;
-                 btn.onclick = () => { currentPage = i; renderTable(); };
-                 if (i === currentPage) {
-                     btn.disabled = true;
-                     btn.style.fontWeight = 'bold';
-                     btn.style.backgroundColor = '#1b5e20'; // Highlight current page
-                 }
-                 pagination.appendChild(btn);
+            for (let i = 1; i <= totalPages; i++) {
+                const btn = document.createElement("button");
+                btn.textContent = i;
+                btn.onclick = () => { currentPage = i; renderTable(); };
+                if (i === currentPage) btn.disabled = true;
+                pagination.appendChild(btn);
             }
-             if (endPage < totalPages) pagination.appendChild(document.createTextNode(" ..."));
-
-
-            // Add Next button
-            const nextBtn = document.createElement("button");
-            nextBtn.textContent = "Next »";
-            nextBtn.disabled = (currentPage === totalPages);
-            nextBtn.onclick = () => { if (currentPage < totalPages) { currentPage++; renderTable(); } };
-            pagination.appendChild(nextBtn);
         }
 
-        // --- Modal Functions ---
-        function openModal(action, index) {
-            // Get the specific row data using the index relative to the 'allData' array
-            const rowData = allData[index];
-            if (!rowData) {
-                alert("Error: Could not find data for the specified row index.");
+        function exportToExcel() {
+            const table = document.getElementById("data-table");
+            if (!table) {
+                alert('Table element not found.');
                 return;
             }
-            selectedRowData = rowData; // Set the global variable for the row being acted upon
+            let tableHTML = table.outerHTML.replace(/ /g, '%20');
+            const filename = 'purchase_requests.xls';
+            const dataType = 'application/vnd.ms-excel';
+
+            const a = document.createElement('a');
+            document.body.appendChild(a);
+            a.href = 'data:' + dataType + ', ' + tableHTML;
+            a.download = filename;
+            a.click();
+            document.body.removeChild(a);
+        }
+
+        function openModal(action, rowIdx) {
             currentAction = action;
-            document.getElementById("note").value = ""; // Clear previous note
+            currentRow = rowIdx;
             document.getElementById("modal").style.display = "flex";
-            document.getElementById("note").focus(); // Focus the note field
         }
 
         function closeModal() {
             document.getElementById("modal").style.display = "none";
+            document.getElementById("note").value = "";
         }
 
+        document.getElementById("submitNote").addEventListener("click", function submitNote() {
+            const note = document.getElementById("note").value.trim();
+            if (!note) return alert("Please enter a note.");
+
+            const userData = localStorage.getItem("user");
+            const email = userData ? JSON.parse(userData).email : "Unknown";
+            const now = new Date().toLocaleString('en-US', { hour12: true });
+
+            const requestNumber = document.getElementById("requestNumber").value.trim();
+
+            if (!requestNumber) return alert("Request number is missing.");
+
+            fetch(SHEET_URL, {
+                method: "POST",
+                body: JSON.stringify({
+                    action: currentAction,
+                    requestNumber: requestNumber,
+                    email: email,
+                    timestamp: now,
+                    note: note
+                })
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    alert(data.result === "success" ? "Submitted!" : "Error occurred.");
+                    closeModal();
+                    fetchData();
+                })
+                .catch(err => alert("Error: " + err.message));
+        });
+
         function showRowDetails(rowData) {
-            selectedRowData = rowData; // Store data for potential actions (like Print)
+            selectedRowData = rowData;
             const detailsTableBody = document.querySelector("#details-table tbody");
             detailsTableBody.innerHTML = "";
 
-            if (!headers || headers.length === 0) {
-                 console.error("Headers not available for details view.");
-                 displayError("Cannot display details - header information missing.");
-                 return;
+            let i = 0;
+            for (const [key, value] of Object.entries(rowData)) {
+                const tr = document.createElement("tr");
+                const keyTd = document.createElement("td");
+                const valueTd = document.createElement("td");
+                const displayValue = String(value);
+
+                keyTd.textContent = headers[i];
+                valueTd.textContent = displayValue;
+
+                tr.appendChild(keyTd);
+                tr.appendChild(valueTd);
+                detailsTableBody.appendChild(tr);
+                i++;
             }
 
-             // Find the original index in allData for button actions
-            const originalIndex = allData.findIndex(item => item === rowData);
-
-            // Map headers to rowData indices, handling potential length mismatch
-            headers.forEach((header, index) => {
-                // Skip internal/action columns if needed, or display all
-                 if (index >= rowData.length) return; // Avoid index out of bounds
-
-                 const tr = document.createElement("tr");
-                 const keyTd = document.createElement("td");
-                 const valueTd = document.createElement("td");
-
-                 keyTd.textContent = header;
-                 let displayValue = (rowData[index] === null || typeof rowData[index] === 'undefined') ? "" : String(rowData[index]);
-
-                 // Format date column (assuming index 0)
-                 if (index === 0) {
-                     displayValue = formatDate(displayValue);
-                 }
-
-                 valueTd.textContent = displayValue;
-
-                 tr.appendChild(keyTd);
-                 tr.appendChild(valueTd);
-                 detailsTableBody.appendChild(tr);
-            });
-
-             // Setup action buttons in the modal footer
             const detailsActions = document.getElementById("detailsActions");
-            detailsActions.innerHTML = ''; // Clear previous buttons
+            detailsActions.innerHTML = '';
 
-             // Check status (index 14) to show Approve/Reject
-            if (rowData[14] && rowData[14].toString().toLowerCase().startsWith('waiting')) {
+            if (rowData[14]?.toLowerCase() === 'waiting') {
                 const approveButton = document.createElement("button");
                 approveButton.textContent = "Approve";
-                approveButton.onclick = () => openModal('approve', originalIndex); // Use the correct index
+                approveButton.id = "detailsApprove";
+                approveButton.onclick = handleApprove;
                 detailsActions.appendChild(approveButton);
 
                 const rejectButton = document.createElement("button");
                 rejectButton.textContent = "Reject";
-                rejectButton.style.backgroundColor = '#d32f2f'; // Reject button red
-                rejectButton.onclick = () => openModal('reject', originalIndex); // Use the correct index
+                approveButton.id = "detailsReject";
+                rejectButton.onclick = handleReject;
                 detailsActions.appendChild(rejectButton);
             }
 
             const printButton = document.createElement("button");
             printButton.textContent = "Print";
             printButton.onclick = printDetails;
-            printButton.style.backgroundColor = '#6c757d'; // Grey print button
             detailsActions.appendChild(printButton);
 
             const closeButton = document.createElement("button");
             closeButton.textContent = "Close";
             closeButton.onclick = closeDetailsModal;
-             closeButton.style.backgroundColor = '#aaa'; // Lighter grey close button
             detailsActions.appendChild(closeButton);
 
             document.getElementById("detailsModal").style.display = "flex";
@@ -778,269 +628,172 @@
 
         function closeDetailsModal() {
             document.getElementById("detailsModal").style.display = "none";
-            selectedRowData = null; // Clear selection
         }
 
-        // --- Action Handlers ---
-        document.getElementById("submitNote").addEventListener("click", function submitNoteHandler() {
-            const note = document.getElementById("note").value.trim();
-            if (!note) {
-                alert("Please enter a note.");
-                return;
-            }
-
-            const userData = localStorage.getItem("user");
-            const email = userData ? JSON.parse(userData).email : "Unknown";
-            // Use a more standard timestamp format if possible (ISO string)
-            const now = new Date().toISOString(); // ISO format like 2025-04-13T11:33:44.123Z
-
-            if (!selectedRowData) {
-                alert("Error: No row selected for submission.");
-                return;
-            }
-
-            const requestNumber = selectedRowData[13]; // Request No at index 13
-
-            if (requestNumber === null || typeof requestNumber === 'undefined' || String(requestNumber).trim() === '') {
-                alert("Error: Could not determine the Request Number for the selected row.");
-                return;
-            }
-
-            console.log(`Submitting Action: ${currentAction}, Request No: ${requestNumber}, By: ${email}`);
-            showLoading(true);
-            displayError(""); // Clear previous errors
-
-            fetch(SHEET_URL, {
-                method: "POST",
-                headers: {
-                    'Content-Type': 'application/json', // Important for Apps Script e.postData.contents
-                 },
-                // Send necessary data as JSON payload
-                body: JSON.stringify({
-                    action: currentAction,
-                    requestNumber: String(requestNumber).trim(),
-                    email: email,
-                    timestamp: formatDate(now), // Send formatted timestamp if preferred by sheet
-                    note: note
-                })
-            })
-            .then(response => {
-                if (!response.ok) {
-                     return response.json().then(errData => { // Try parsing error JSON from Apps Script
-                          throw new Error(`HTTP error! Status: ${response.status}. Message: ${errData.message || 'No server message.'}`);
-                     }).catch(() => { // Fallback if error response isn't JSON
-                          throw new Error(`HTTP error! Status: ${response.status}. Could not parse error response.`);
-                     });
-                }
-                 // Check content type before assuming JSON
-                 const contentType = response.headers.get("content-type");
-                 if (contentType && contentType.indexOf("application/json") !== -1) {
-                    return response.json();
-                 } else {
-                    // Handle non-JSON success response? Unlikely with current script.
-                    return response.text().then(text => ({ result: 'success', message: `Received non-JSON response: ${text}` }));
-                 }
-            })
-            .then(data => {
-                 showLoading(false);
-                 if (data.result === "success") {
-                     alert("Submitted successfully! " + (data.message || ''));
-                     closeModal();
-                     fetchData(); // Refresh data
-                 } else {
-                     // Display error message from server response
-                     throw new Error(data.message || "Submission failed with unknown server error.");
-                 }
-            })
-            .catch(err => {
-                 showLoading(false);
-                 console.error("Submit Error:", err);
-                 displayError("Submission Error: " + err.message); // Show error in the error div
-            });
-        });
-
-        function exportToExcel() {
-            // Use a library like SheetJS (xlsx) for robust export, or simple HTML table export as fallback
-            const table = document.getElementById("data-table");
-            if (!table || allData.length === 0) {
-                alert('No data available to export.');
-                return;
-            }
-
-            // Basic HTML table export (limited formatting)
-            let tableHTML = "<table><thead>" + table.querySelector("thead").innerHTML + "</thead><tbody>";
-            // Use all filtered data, not just the current page
-            allData.forEach(row => {
-                 tableHTML += "<tr>";
-                 // Logic similar to renderTable to get correct columns/order
-                 let cellsToExport = [];
-                 if (currentStatus === 'waiting') {
-                     cellsToExport.push(row[13]); // Request No
-                     columnsToShow.forEach(col => cellsToExport.push(row[col.index]));
-                     cellsToExport.push(""); // Empty Action cell
-                 } else {
-                     columnsToShow.forEach(col => cellsToExport.push(row[col.index]));
-                     cellsToExport.push(row[14]); // Status string
-                 }
-                 cellsToExport.forEach((cell, idx) => {
-                     let cellValue = (cell === null || typeof cell === 'undefined') ? "" : String(cell);
-                     // Format date if needed (check based on column index)
-                     const isDateColumn = (currentStatus === 'waiting' && idx === 1) || (currentStatus !== 'waiting' && idx === 0);
-                     if (isDateColumn) {
-                         cellValue = formatDate(cellValue);
-                     }
-                     tableHTML += `<td>${cellValue}</td>`;
-                 });
-                 tableHTML += "</tr>";
-            });
-             tableHTML += "</tbody></table>";
-
-
-            const filename = `purchase_requests_${currentStatus}_${new Date().toISOString().slice(0,10)}.xls`;
-            const mimeType = 'application/vnd.ms-excel';
-
-            // Create blob for potentially better compatibility
-            const blob = new Blob([tableHTML], { type: mimeType });
-            const url = URL.createObjectURL(blob);
-
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = filename;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url); // Clean up blob URL
+        function handleApprove() {
+            if (!selectedRowData) return;
+            openModal('approve', allData.indexOf(selectedRowData) + 1);
         }
 
-
-        function printDetails() {
-             const rowData = selectedRowData;
-             if (!rowData || !headers || !headers.length) {
-                 alert("No details selected to print.");
-                 return;
-             }
-             // (Print logic as previously defined - seems okay)
-              let html = `
-                <html><head><title>Print Purchase Request Details</title><style>
-                    body { font-family: Arial, sans-serif; padding: 20px; font-size: 12pt; }
-                    h2 { color: #2e7d32; border-bottom: 1px solid #ccc; padding-bottom: 5px; }
-                    table { width: 100%; border-collapse: collapse; margin-top: 15px; }
-                    th, td { padding: 8px 10px; border: 1px solid #ccc; text-align: left; vertical-align: top; word-wrap: break-word; }
-                    th { background-color: #f2f2f2; font-weight: bold; width: 180px; }
-                    td { white-space: pre-wrap; } /* Preserve formatting */
-                </style></head><body><h2>Purchase Request Details</h2><table><thead><tr><th>Field</th><th>Value</th></tr></thead><tbody>`;
-
-            headers.forEach((header, index) => {
-                 if (index < rowData.length) { // Ensure index exists in data
-                    const fieldName = header;
-                    let fieldValue = (rowData[index] === null || typeof rowData[index] === 'undefined') ? "" : String(rowData[index]);
-                    if (index === 0) fieldValue = formatDate(fieldValue); // Format date
-                    html += `<tr><td>${fieldName}</td><td>${fieldValue}</td></tr>`;
-                 }
-            });
-             html += `</tbody></table></body></html>`;
-
-             const printWindow = window.open('', '_blank');
-             printWindow.document.write(html);
-             printWindow.document.close();
-             printWindow.focus();
-              // Delay print slightly to allow rendering
-             setTimeout(() => {
-                 try {
-                      printWindow.print();
-                      printWindow.close();
-                 } catch (e) {
-                      console.error("Print failed:", e);
-                      printWindow.close(); // Close even if print fails
-                 }
-             }, 500);
+        function handleReject() {
+            if (!selectedRowData) return;
+            openModal('reject', allData.indexOf(selectedRowData) + 1);
         }
 
         function logout() {
             localStorage.removeItem("user");
-            window.location.href = "index.html"; // Redirect to login page
+            window.location.href = "index.html";
         }
 
-        // --- Session Management ---
+        function printDetails() {
+            const rowData = selectedRowData;
+            if (!rowData || !headers.length) return;
+
+            let html = `
+                <html>
+                <head>
+                    <title>Print Details</title>
+                    <style>
+                        body {
+                            font-family: Arial, sans-serif;
+                            padding: 20px;
+                        }
+                        h2 {
+                            color: #2e7d32;
+                        }
+                        table {
+                            width: 100%;
+                            border-collapse: collapse;
+                            margin-top: 20px;
+                        }
+                        th, td {
+                            padding: 10px;
+                            border: 1px solid #ccc;
+                            text-align: left;
+                        }
+                        th {
+                            background-color: #2e7d32;
+                            color: white;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <h2>Purchase Request Details</h2>
+                    <table>
+                        <thead>
+                            <tr><th>Field</th><th>Value</th></tr>
+                        </thead>
+                        <tbody>`;
+
+            rowData.forEach((value, index) => {
+                html += `<tr>
+                            <td>${headers[index] || "Field " + (index + 1)}</td>
+                            <td>${value}</td>
+                        </tr>`;
+            });
+
+            html += `
+                        </tbody>
+                    </table>
+                </body>
+                </html>
+            `;
+
+            const printWindow = window.open('', '_blank');
+            printWindow.document.write(html);
+            printWindow.document.close();
+            printWindow.focus();
+            printWindow.print();
+            printWindow.close();
+        }
+
+        function displayUserEmail() {
+            const userData = localStorage.getItem("user");
+            if (userData) {
+                const parsedUser = JSON.parse(userData);
+                const email = parsedUser.email;
+                document.getElementById("email-display").textContent = "Logged in: " + email;
+            } else {
+                document.getElementById("email-display").textContent = "Not logged in.";
+            }
+        }
+
+        window.addEventListener("DOMContentLoaded", function() {
+            fetchData();
+            displayUserEmail();
+        });
+
         let sessionTimeout, warningTimeout, countdownInterval;
-        const sessionLimit = 30 * 60 * 1000; // 30 minutes
-        const warningTimeBeforeExpiry = 2 * 60 * 1000; // 2 minutes warning
-        const warningDisplayTime = sessionLimit - warningTimeBeforeExpiry;
+        const sessionLimit = 30 * 60 * 1000;
+        const warningTime = 28 * 60 * 1000;
 
         function resetSessionTimers() {
             clearTimeout(sessionTimeout);
             clearTimeout(warningTimeout);
             clearInterval(countdownInterval);
-            const warningElement = document.getElementById("session-warning");
-            if (warningElement) warningElement.style.display = "none";
+            document.getElementById("session-warning")?.remove();
 
-            warningTimeout = setTimeout(showCountdownWarning, warningDisplayTime);
+            warningTimeout = setTimeout(showCountdownWarning, warningTime);
+
             sessionTimeout = setTimeout(() => {
                 alert("Session expired due to inactivity.");
-                logout();
+                localStorage.removeItem("user");
+                window.location.href = "index.html";
             }, sessionLimit);
-             // console.log("Session timers reset.");
         }
 
         function showCountdownWarning() {
-            const warningElement = document.getElementById("session-warning");
-            if (!warningElement) return;
-            warningElement.style.display = "flex";
-            let secondsLeft = Math.floor(warningTimeBeforeExpiry / 1000);
-            const timerSpan = document.getElementById("countdown-timer");
-            if(timerSpan) timerSpan.textContent = secondsLeft;
+            const div = document.createElement("div");
+            div.id = "session-warning";
+            div.style.position = "fixed";
+            div.style.top = "0";
+            div.style.left = "0";
+            div.style.width = "100%";
+            div.style.height = "100%";
+            div.style.backgroundColor = "rgba(0, 0, 0, 0.8)";
+            div.style.display = "flex";
+            div.style.flexDirection = "column";
+            div.style.alignItems = "center";
+            div.style.justifyContent = "center";
+            div.style.zIndex = "9999";
+            div.style.color = "white";
+            div.style.textAlign = "center";
+            div.innerHTML = `
+                <img src="https://drive.google.com/uc?export=view&id=1otD1-q33yGpG8Y4oD87HT-E3DmmLApUO"
+                    alt="Logo" style="width:150px; height:auto; margin-bottom: 20px; animation: pulse 2s infinite;">
+                <div style="font-size: 24px;">
+                    ⏳ <span id="countdown-timer">120</span> seconds left! Stay active 😃🎉🥳
+                </div>
+            `;
+            document.body.appendChild(div);
 
+            let secondsLeft = 120;
             countdownInterval = setInterval(() => {
                 secondsLeft--;
-                if(timerSpan) timerSpan.textContent = secondsLeft;
                 if (secondsLeft <= 0) {
                     clearInterval(countdownInterval);
-                    // Timeout will handle actual logout
+                    div.innerHTML = `<h2 style="color:white;">🚪 Session expired!</h2>`;
+                } else {
+                    document.getElementById("countdown-timer").textContent = secondsLeft;
                 }
             }, 1000);
         }
 
+        const style = document.createElement("style");
+        style.innerHTML = `
+            @keyframes pulse {
+                0% { transform: scale(1); opacity: 1; }
+                50% { transform: scale(1.1); opacity: 0.8; }
+                100% { transform: scale(1); opacity: 1; }
+            }
+        `;
+        document.head.appendChild(style);
+
         ["click", "mousemove", "keypress", "scroll", "touchstart"].forEach(evt =>
-            document.addEventListener(evt, resetSessionTimers, { passive: true })
+            document.addEventListener(evt, resetSessionTimers)
         );
 
-         function displayUserEmail() {
-             const userData = localStorage.getItem("user");
-             if (userData) {
-                 try {
-                     const parsedUser = JSON.parse(userData);
-                     document.getElementById("email-display").textContent = parsedUser.email;
-                     return true; // User is logged in
-                 } catch (e) {
-                     console.error("Error parsing user data:", e);
-                     localStorage.removeItem("user"); // Clear corrupted data
-                 }
-             }
-             // If no valid user data, redirect to login
-             alert("You are not logged in or session is invalid. Redirecting...");
-             window.location.href = "index.html";
-             return false; // User is not logged in
-         }
-
-
-        // --- Page Initialization ---
-        window.addEventListener("DOMContentLoaded", () => {
-            if (displayUserEmail()) { // Check login status first
-                 document.querySelector('.submenu li[onclick*="waiting"]').classList.add('active'); // Set default active filter
-                 fetchData(); // Initial data load
-                 resetSessionTimers(); // Start session timers
-            }
-            // Add event listener to modal backdrop to close modals (optional)
-             document.querySelectorAll('.modal').forEach(modal => {
-                 modal.addEventListener('click', (event) => {
-                     if (event.target === modal) { // Clicked on backdrop, not content
-                         closeModal();
-                         closeDetailsModal();
-                     }
-                 });
-             });
-        });
-
+        window.addEventListener("load", resetSessionTimers);
     </script>
 </body>
 </html>
