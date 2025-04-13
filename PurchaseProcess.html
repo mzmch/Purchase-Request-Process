@@ -659,6 +659,64 @@ function displayUserEmail() {
             fetchData();
             displayUserEmail(); // Call the function to display the email
         });
+
+
+// --- Session Timeout Logic (2 mins), Warning after 1 min ---
+    let sessionTimeout, warningTimeout, countdownInterval;
+    const sessionLimit = 2 * 60 * 1000; // 2 minutes
+    const warningTime = 1 * 60 * 1000;  // 1 minute
+
+    function resetSessionTimers() {
+        clearTimeout(sessionTimeout);
+        clearTimeout(warningTimeout);
+        clearInterval(countdownInterval);
+        document.getElementById("session-warning")?.remove();
+
+        warningTimeout = setTimeout(showCountdownWarning, warningTime);
+
+        sessionTimeout = setTimeout(() => {
+            alert("Session expired due to inactivity.");
+            localStorage.removeItem("user");
+            window.location.href = "index.html";
+        }, sessionLimit);
+    }
+
+    function showCountdownWarning() {
+        const div = document.createElement("div");
+        div.id = "session-warning";
+        div.style.position = "fixed";
+        div.style.bottom = "20px";
+        div.style.right = "20px";
+        div.style.background = "#2e7d32";
+        div.style.color = "white";
+        div.style.padding = "15px 20px";
+        div.style.borderRadius = "8px";
+        div.style.fontSize = "16px";
+        div.style.boxShadow = "0 4px 12px rgba(0,0,0,0.4)";
+        div.style.zIndex = "9999";
+        div.innerHTML = `⏳<span id="countdown-timer">60</span> seconds left! Stay active 😃🎉🥳`;
+        document.body.appendChild(div);
+
+        let secondsLeft = 60;
+        countdownInterval = setInterval(() => {
+            secondsLeft--;
+            if (secondsLeft <= 0) {
+                clearInterval(countdownInterval);
+                div.innerHTML = "🚪 Session expired!";
+            } else {
+                document.getElementById("countdown-timer").textContent = secondsLeft;
+            }
+        }, 1000);
+    }
+
+    // Reset timers on user interaction
+    ["click", "mousemove", "keypress", "scroll", "touchstart"].forEach(evt =>
+        document.addEventListener(evt, resetSessionTimers)
+    );
+
+    window.addEventListener("load", resetSessionTimers);
+
+        
     </script>
 </body>
 </html>
