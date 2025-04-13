@@ -7,13 +7,14 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #2c2c2c; /* Dark grey */;
+      background: #2c2c2c; /* Dark grey */
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
       margin: 0;
     }
+
     .container {
       background: white;
       padding: 30px;
@@ -23,11 +24,14 @@
       max-width: 320px;
       text-align: center;
     }
+
     h2 {
       color: #2e7d32;
-      text-align: center;
     }
-    input[type="text"], input[type="email"], input[type="password"] {
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
       width: 100%;
       padding: 10px;
       margin: 10px 0;
@@ -35,37 +39,38 @@
       border-radius: 4px;
       box-sizing: border-box;
     }
+
     button {
       width: 100%;
       padding: 10px;
       background-color: #2e7d32;
       color: white;
-      border: 1px solid white;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+      border: none;
       border-radius: 4px;
       cursor: pointer;
       margin: 5px 0;
     }
+
     .message {
-      text-align: center;
       margin-top: 10px;
       color: #d32f2f;
     }
+
     .success-image {
       display: none;
       margin-top: 15px;
     }
+
     .forgot-password {
       color: #007bff;
       cursor: pointer;
-      margin: 5px 0;
       font-size: 0.9em;
+      margin-top: 5px;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <!-- LOGIN / SIGNUP -->
     <div id="login-container">
       <h2 id="form-title">Sign In</h2>
       <input type="text" id="name" placeholder="Name" style="display:none;">
@@ -78,7 +83,7 @@
     </div>
 
     <div class="message" id="message"></div>
-    <img id="handshake" class="success-image" src="https://media.giphy.com/media/3o7btY7D7D1F8aNJEA/giphy.gif" alt="Handshake Animation" width="100">
+    <img id="handshake" class="success-image" src="https://media.giphy.com/media/3o7btY7D7D1F8aNJEA/giphy.gif" alt="Handshake" width="100">
 
     <!-- Forgot Password -->
     <div id="forgot-container" style="display:none;">
@@ -101,7 +106,7 @@
 
   <script>
     let isSignUp = false;
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbw3tg9-3Wc_qOpgXrDMUDuyNzMc_p38lfzepLaoUnm9H9zg2X-n7EAJIijFjGHq5I0BnQ/exec';
+    const scriptURL = 'https://script.google.com/macros/s/YOUR_DEPLOYED_SCRIPT_URL/exec'; // Replace with your URL
 
     function toggleForm() {
       isSignUp = !isSignUp;
@@ -131,15 +136,13 @@
 
       fetch(scriptURL, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        },
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: formData
       })
       .then(response => response.json())
       .then(data => {
         if (data.result === "success" || data.result === "Login successful.") {
-          localStorage.setItem("user", JSON.stringify({ email: email }));
+          localStorage.setItem("user", JSON.stringify({ email }));
           document.getElementById("message").style.color = "green";
           document.getElementById("message").textContent = `Welcome, ${name || email}! Redirecting...`;
           document.getElementById("handshake").style.display = "block";
@@ -153,9 +156,7 @@
         }
       })
       .catch(() => {
-        document.getElementById("message").style.color = "#d32f2f";
         document.getElementById("message").textContent = "Error connecting to server.";
-        document.getElementById("handshake").style.display = "none";
       });
     }
 
@@ -181,7 +182,7 @@
       const email = document.getElementById("forgot-email").value;
       if (!email) return alert("Enter your email");
 
-      fetch(scriptURL + "?func=ForgotPassword&email=" + encodeURIComponent(email))
+      fetch(`${scriptURL}?func=ForgotPassword&email=${encodeURIComponent(email)}`)
         .then(res => res.json())
         .then(data => alert(data.message || data.result))
         .catch(() => alert("Error contacting server"));
@@ -191,7 +192,7 @@
       const email = document.getElementById("reset-email").value;
       if (!email) return alert("Enter your email");
 
-      fetch(scriptURL + "?func=SendOTP&email=" + encodeURIComponent(email))
+      fetch(`${scriptURL}?func=SendOTP&email=${encodeURIComponent(email)}`)
         .then(res => res.json())
         .then(data => {
           if (data.result === "success") {
@@ -204,14 +205,12 @@
     }
 
     function verifyOtp() {
-      const otpEntered = document.getElementById("otp").value;
+      const otp = document.getElementById("otp").value;
       const newPassword = document.getElementById("new-password").value;
       const email = document.getElementById("reset-email").value;
-      const otpStored = localStorage.getItem("otp");
+      const storedOtp = localStorage.getItem("otp");
 
-      if (!otpEntered || !newPassword) return alert("Fill all fields");
-
-      if (otpEntered === otpStored) {
+      if (otp === storedOtp && newPassword) {
         const formData = new URLSearchParams();
         formData.append("func", "ResetPassword");
         formData.append("email", email);
@@ -226,76 +225,63 @@
         .then(data => alert(data.message))
         .catch(() => alert("Error updating password"));
       } else {
-        alert("Invalid OTP");
+        alert("Invalid OTP or empty password.");
       }
     }
- 
-  let sessionTimeout;
-  let warningTimeout;
-  let countdownInterval;
-  const sessionLimit = 2 * 60 * 1000; // 30 minutes
-  const warningTime = 1 * 60 * 1000;  // 28 minutes
 
-  function resetSessionTimers() {
-    clearTimeout(sessionTimeout);
-    clearTimeout(warningTimeout);
-    clearInterval(countdownInterval);
-    document.getElementById("session-warning")?.remove();
+    // SESSION TIMEOUT SCRIPT (30 min timeout with 2 min countdown)
+    let sessionTimeout, warningTimeout, countdownInterval;
+    const sessionLimit = 30 * 60 * 1000; // 30 minutes
+    const warningTime = 28 * 60 * 1000;  // 28 minutes
 
-    // Set warning
-    warningTimeout = setTimeout(showCountdownWarning, warningTime);
+    function resetSessionTimers() {
+      clearTimeout(sessionTimeout);
+      clearTimeout(warningTimeout);
+      clearInterval(countdownInterval);
+      document.getElementById("session-warning")?.remove();
 
-    // Set session expiry
-    sessionTimeout = setTimeout(() => {
-      alert("Session expired due to inactivity.");
-      localStorage.removeItem("user");
-      window.location.href = "index.html"; // redirect to login
-    }, sessionLimit);
-  }
+      warningTimeout = setTimeout(showCountdownWarning, warningTime);
 
-  function showCountdownWarning() {
-    const countdownDiv = document.createElement("div");
-    countdownDiv.id = "session-warning";
-    countdownDiv.style.position = "fixed";
-    countdownDiv.style.bottom = "20px";
-    countdownDiv.style.right = "20px";
-    countdownDiv.style.background = "#d32f2f";
-    countdownDiv.style.color = "white";
-    countdownDiv.style.padding = "10px 20px";
-    countdownDiv.style.borderRadius = "5px";
-    countdownDiv.style.fontSize = "16px";
-    countdownDiv.style.boxShadow = "0 2px 5px rgba(0,0,0,0.3)";
-    document.body.appendChild(countdownDiv);
+      sessionTimeout = setTimeout(() => {
+        alert("Session expired due to inactivity.");
+        localStorage.removeItem("user");
+        window.location.href = "index.html";
+      }, sessionLimit);
+    }
 
-    let secondsLeft = 60; // 2 minutes
-    countdownDiv.innerText = `Session expiring in ${formatTime(secondsLeft)}`;
+    function showCountdownWarning() {
+      const div = document.createElement("div");
+      div.id = "session-warning";
+      div.style.position = "fixed";
+      div.style.bottom = "20px";
+      div.style.right = "20px";
+      div.style.background = "#d32f2f";
+      div.style.color = "white";
+      div.style.padding = "10px 20px";
+      div.style.borderRadius = "5px";
+      div.style.fontSize = "16px";
+      div.style.boxShadow = "0 2px 5px rgba(0,0,0,0.3)";
+      div.innerText = "Session expiring soon...";
+      document.body.appendChild(div);
 
-    countdownInterval = setInterval(() => {
-      secondsLeft--;
-      if (secondsLeft <= 0) {
-        clearInterval(countdownInterval);
-        countdownDiv.innerText = "Session expired.";
-      } else {
-        countdownDiv.innerText = `Session expiring in ${formatTime(secondsLeft)}`;
-      }
-    }, 1000);
-  }
+      let secondsLeft = 120;
+      countdownInterval = setInterval(() => {
+        secondsLeft--;
+        if (secondsLeft <= 0) {
+          clearInterval(countdownInterval);
+          div.innerText = "Session expired.";
+        } else {
+          div.innerText = `Session expiring in ${Math.floor(secondsLeft / 60)}:${String(secondsLeft % 60).padStart(2, '0')}`;
+        }
+      }, 1000);
+    }
 
-  function formatTime(seconds) {
-    const m = Math.floor(seconds / 60);
-    const s = seconds % 60;
-    return `${m}:${s.toString().padStart(2, '0')}`;
-  }
+    // Reset session timers on activity
+    ["click", "mousemove", "keypress", "scroll", "touchstart"].forEach(evt =>
+      document.addEventListener(evt, resetSessionTimers)
+    );
 
-  // Detect activity
-  ["click", "mousemove", "keypress", "scroll", "touchstart"].forEach(evt =>
-    document.addEventListener(evt, resetSessionTimers)
-  );
-
-  // Start timers on load
-  window.addEventListener("load", resetSessionTimers);
-</script>
-
-  
+    window.addEventListener("load", resetSessionTimers);
+  </script>
 </body>
 </html>
