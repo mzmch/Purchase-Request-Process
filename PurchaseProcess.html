@@ -460,7 +460,7 @@
 
                 let cellValues;
                 if (currentStatus === 'waiting') {
-                    cellValues = [row[0], ...row.slice(0, 13)];
+                    cellValues = [row[13], ...row.slice(0, 13)]; // request number is in index 13
                 } else {
                     cellValues = row.slice(0, 13);
                 }
