@@ -233,8 +233,8 @@
   let sessionTimeout;
   let warningTimeout;
   let countdownInterval;
-  const sessionLimit = 30 * 60 * 1000; // 30 minutes
-  const warningTime = 28 * 60 * 1000;  // 28 minutes
+  const sessionLimit = 2 * 60 * 1000; // 30 minutes
+  const warningTime = 1 * 60 * 1000;  // 28 minutes
 
   function resetSessionTimers() {
     clearTimeout(sessionTimeout);
@@ -267,7 +267,7 @@
     countdownDiv.style.boxShadow = "0 2px 5px rgba(0,0,0,0.3)";
     document.body.appendChild(countdownDiv);
 
-    let secondsLeft = 120; // 2 minutes
+    let secondsLeft = 60; // 2 minutes
     countdownDiv.innerText = `Session expiring in ${formatTime(secondsLeft)}`;
 
     countdownInterval = setInterval(() => {
