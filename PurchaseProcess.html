@@ -5,21 +5,21 @@
     <title>Purchase Requests Viewer</title>
     <style>
         body {
-    font-family: Arial, sans-serif;
-    background: linear-gradient(to bottom right, #1f1f1f, #3a3a3a); /* Dark grey gradient */
-     padding: 0;
-    margin: 0;
-    display: flex; /* Flexbox to place sidebar on the left */
-    height: 100vh;
-}
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom right, #1f1f1f, #3a3a3a);
+            padding: 0;
+            margin: 0;
+            display: flex;
+            height: 100vh;
+        }
 
         .sidebar {
             width: 120px;
             background-color: #2e7d32;
             color: white;
             padding: 20px;
-            box-shadow: 2px 0 5px rgba(0,0,0,0.3);
-            position: relative; /* Keeps it fixed to the left */
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
+            position: relative;
         }
 
         .menu-section {
@@ -52,52 +52,48 @@
         .content {
             flex-grow: 1;
             padding: 20px;
-            overflow-y: auto; /* Make sure content area is scrollable if needed */
+            overflow-y: auto;
         }
 
         h1 {
             color: white;
         }
 
+        table {
+            width: 100%;
+            max-width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+            background-color: white;
+            cursor: pointer;
+        }
 
-table {
-    width: 100%; /* Ensures the table takes up full available width */
-    max-width: 100%; /* Ensures the table doesn't overflow the page */
-    border-collapse: collapse;
-    margin-top: 20px;
-    box-shadow: 0 0 15px rgba(0,0,0,0.3);
-    background-color: white;
-    cursor: pointer;
-}
+        th, td {
+            padding: 6px;
+            border: 1px solid #ccc;
+            text-align: left;
+            word-wrap: break-word;
+            max-width: 100px;
+            overflow: hidden;
+        }
 
-th, td {
-    padding: 6px;
-    border: 1px solid #ccc;
-    text-align: left;
-    word-wrap: break-word;
-    max-width: 100px;
-    overflow: hidden;
-}
+        th {
+            background-color: #2e7d32;
+            color: white;
+        }
 
-th {
-    background-color: #2e7d32;
-    color: white;
-}
+        tr:nth-child(odd) {
+            background-color: #f0fff0;
+        }
 
-tr:nth-child(odd) {
-    background-color: #f0fff0;
-}
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
 
-tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
-
-tr.selected {
-    background-color: #c8e6c9 !important;
-}
-
-
-        
+        tr.selected {
+            background-color: #c8e6c9 !important;
+        }
 
         input[type="text"] {
             padding: 8px;
@@ -111,26 +107,28 @@ tr.selected {
             cursor: pointer;
             background-color: #2e7d32;
             color: white;
-            border: 2px solid white; /* White border */
-    border-radius: 4px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Shadow */
-    transition: box-shadow 0.3s ease; /* Smooth transition for shadow */
+            border: 2px solid white;
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            transition: box-shadow 0.3s ease;
         }
 
         button:hover {
-    background-color: #388e3c; /* Darker green background on hover */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4); /* Darker shadow on hover */
-}
+            background-color: #388e3c;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+        }
 
-button:focus {
-    outline: none; /* Remove the default outline when focused */
-}
+        button:focus {
+            outline: none;
+        }
 
         .modal {
             display: none;
             position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             background-color: rgba(0, 0, 0, 0.5);
             justify-content: center;
             align-items: center;
@@ -152,27 +150,29 @@ button:focus {
             background-color: rgba(0, 0, 0, 0.6);
             color: white;
             position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
             font-size: 24px;
             z-index: 1000;
         }
-        .error-message{
-            color:red;
+
+        .error-message {
+            color: red;
         }
 
         .pagination {
             margin-top: 10px;
         }
+
         .pagination button {
             margin-right: 5px;
         }
 
-       
-        /* Styles for the details table in the modal */
         #details-table {
             width: 100%;
             border-collapse: collapse;
@@ -202,10 +202,9 @@ button:focus {
             margin-left: 10px;
         }
 
-        /* Hover effect for table rows */
         #data-table tbody tr:hover {
-            background-color: #d4edda; /* Light green hover background */
-            cursor: pointer;          /* Change cursor to pointer on hover */
+            background-color: #d4edda;
+            cursor: pointer;
         }
 
         #email-display {
@@ -222,7 +221,7 @@ button:focus {
             top: 10px;
             right: 10px;
             padding: 8px 15px;
-            background-color: #d32f2f; /* Red color for logout */
+            background-color: #d32f2f;
             color: white;
             border: none;
             border-radius: 4px;
@@ -231,9 +230,52 @@ button:focus {
         }
 
         #logoutButton:hover {
-            background-color: #c62828; /* Darker red when hovered */
+            background-color: #c62828;
         }
 
+        #session-warning {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        #session-warning img {
+            width: 150px;
+            height: auto;
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+
+        #session-warning .countdown {
+            font-size: 24px;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            50% {
+                transform: scale(1.1);
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
     </style>
 </head>
 <body>
@@ -277,7 +319,7 @@ button:focus {
             <tbody></tbody>
         </table>
         <div class="pagination" id="pagination"></div>
-        <div id="error-message" class = "error-message"></div>
+        <div id="error-message" class="error-message"></div>
     </div>
 
     <div id="detailsModal" class="modal">
@@ -313,6 +355,12 @@ button:focus {
     <div id="email-display"></div>
     <button id="logoutButton" onclick="logout()">Logout</button>
 
+    <div id="session-warning">
+        <img src="https://drive.google.com/uc?export=view&id=1otD1-q33yGpG8Y4oD87HT-E3DmmLApUO" alt="Logo">
+        <div class="countdown">
+            ⏳ <span id="countdown-timer">120</span> seconds left! Stay active 😃🎉🥳
+        </div>
+    </div>
 
     <script>
         const SHEET_URL = "https://script.google.com/macros/s/AKfycby600m0maUCC-DZ25tm4p7ZiC560iXDsB6e6xt-q_Y_3AZL18R_chr7EkUjbFIy_lJ_/exec";
@@ -345,8 +393,7 @@ button:focus {
             const dept = document.getElementById("searchDept").value.trim();
             const mobile = document.getElementById("searchMobile").value.trim();
             document.getElementById("loading").style.display = "flex";
-            document.getElementById("error-message").textContent = ""; // Clear previous error message
-
+            document.getElementById("error-message").textContent = "";
 
             const url = `${SHEET_URL}?department=${encodeURIComponent(dept)}&mobile=${encodeURIComponent(mobile)}`;
 
@@ -355,11 +402,11 @@ button:focus {
                     if (!response.ok) {
                         throw new Error(`HTTP error! Status: ${response.status}`);
                     }
-                    return response.json(); // Parse the JSON body
+                    return response.json();
                 })
                 .then(data => {
                     console.log("Fetched Data:", data);
-                    if (data && data.error) {  // Check for error object
+                    if (data && data.error) {
                         document.getElementById("error-message").textContent = "Error from server: " + data.error;
                         document.getElementById("loading").style.display = "none";
                         return;
@@ -394,17 +441,38 @@ button:focus {
             const end = start + pageSize;
             const pageData = allData.slice(start, end);
 
+            const tableHeaders = currentStatus === 'waiting'
+                ? ["Request No", "Date", "Name", "Department", "Mobile", "Email", "Item", "Specification", "Estimated Cost", "Total Cost", "Justification", "Vendor", "Contact", "Reason", "Action"]
+                : ["Date", "Name", "Department", "Mobile", "Email", "Item", "Specification", "Estimated Cost", "Total Cost", "Justification", "Vendor", "Contact", "Reason", "Action"];
+
+            const thead = document.querySelector("#data-table thead tr");
+            thead.innerHTML = "";
+            tableHeaders.forEach(headerText => {
+                const th = document.createElement("th");
+                th.textContent = headerText;
+                thead.appendChild(th);
+            });
+
             pageData.forEach((row, index) => {
                 const tr = document.createElement("tr");
                 tr.dataset.row = JSON.stringify(row);
                 tr.addEventListener('click', () => showRowDetails(row));
-                row.slice(0, 13).forEach((cell, idx) => {
+
+                let cellValues;
+                if (currentStatus === 'waiting') {
+                    cellValues = [row[0], ...row.slice(0, 13)];
+                } else {
+                    cellValues = row.slice(0, 13);
+                }
+
+                cellValues.forEach((cell, idx) => {
                     const td = document.createElement("td");
                     let cellContent = String(cell);
                     if (cellContent.length > 100) {
                         cellContent = cellContent.substring(0, 100) + "...";
                     }
-                    td.textContent = idx === 0 ? formatDate(cell) : cellContent;
+                    td.textContent = idx === 1 && currentStatus !== 'waiting' ? formatDate(cell) : cellContent;
+                    td.textContent = idx === 1 && currentStatus === 'waiting' ? formatDate(cell) : cellContent;
                     tr.appendChild(td);
                 });
 
@@ -417,7 +485,7 @@ button:focus {
                 } else if (currentStatus === 'all') {
                     let actionContent = row[14] || '';
                     if (actionContent.length > 100) {
-                         actionContent = actionContent.substring(0, 100) + "...";
+                        actionContent = actionContent.substring(0, 100) + "...";
                     }
                     td.textContent = actionContent;
                 } else {
@@ -471,45 +539,41 @@ button:focus {
             document.getElementById("note").value = "";
         }
 
-
-
         document.getElementById("submitNote").addEventListener("click", function submitNote() {
-    const note = document.getElementById("note").value.trim();
-    if (!note) return alert("Please enter a note.");
+            const note = document.getElementById("note").value.trim();
+            if (!note) return alert("Please enter a note.");
 
-    const userData = localStorage.getItem("user");
-    const email = userData ? JSON.parse(userData).email : "Unknown";
-    const now = new Date().toLocaleString('en-US', { hour12: true });
+            const userData = localStorage.getItem("user");
+            const email = userData ? JSON.parse(userData).email : "Unknown";
+            const now = new Date().toLocaleString('en-US', { hour12: true });
 
-    // Get request number from input or somewhere on the page
-    const requestNumber = document.getElementById("requestNumber").value.trim(); // Or however you store it
+            const requestNumber = document.getElementById("requestNumber").value.trim();
 
-    if (!requestNumber) return alert("Request number is missing.");
+            if (!requestNumber) return alert("Request number is missing.");
 
-    fetch(SHEET_URL, {
-        method: "POST",
-        body: JSON.stringify({
-            action: currentAction,   // e.g., "updateNote"
-            requestNumber: requestNumber,
-            email: email,
-            timestamp: now,
-            note: note
-        })
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        return response.json();
-    })
-    .then(data => {
-        alert(data.result === "success" ? "Submitted!" : "Error occurred.");
-        closeModal();
-        fetchData();
-    })
-    .catch(err => alert("Error: " + err.message));
-});
-
+            fetch(SHEET_URL, {
+                method: "POST",
+                body: JSON.stringify({
+                    action: currentAction,
+                    requestNumber: requestNumber,
+                    email: email,
+                    timestamp: now,
+                    note: note
+                })
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    alert(data.result === "success" ? "Submitted!" : "Error occurred.");
+                    closeModal();
+                    fetchData();
+                })
+                .catch(err => alert("Error: " + err.message));
+        });
 
         function showRowDetails(rowData) {
             selectedRowData = rowData;
@@ -576,178 +640,160 @@ button:focus {
             openModal('reject', allData.indexOf(selectedRowData) + 1);
         }
 
-
-
         function logout() {
-    // Clear user data from localStorage
-    localStorage.removeItem("user");
-    
-    // Redirect to index.html
-    window.location.href = "index.html";
-}
+            localStorage.removeItem("user");
+            window.location.href = "index.html";
+        }
 
-        
-function printDetails() {
-    const rowData = selectedRowData;
-    if (!rowData || !headers.length) return;
+        function printDetails() {
+            const rowData = selectedRowData;
+            if (!rowData || !headers.length) return;
 
-    let html = `
-        <html>
-        <head>
-            <title>Print Details</title>
-            <style>
-                body {
-                    font-family: Arial, sans-serif;
-                    padding: 20px;
-                }
-                h2 {
-                    color: #2e7d32;
-                }
-                table {
-                    width: 100%;
-                    border-collapse: collapse;
-                    margin-top: 20px;
-                }
-                th, td {
-                    padding: 10px;
-                    border: 1px solid #ccc;
-                    text-align: left;
-                }
-                th {
-                    background-color: #2e7d32;
-                    color: white;
-                }
-            </style>
-        </head>
-        <body>
-            <h2>Purchase Request Details</h2>
-            <table>
-                <thead>
-                    <tr><th>Field</th><th>Value</th></tr>
-                </thead>
-                <tbody>`;
+            let html = `
+                <html>
+                <head>
+                    <title>Print Details</title>
+                    <style>
+                        body {
+                            font-family: Arial, sans-serif;
+                            padding: 20px;
+                        }
+                        h2 {
+                            color: #2e7d32;
+                        }
+                        table {
+                            width: 100%;
+                            border-collapse: collapse;
+                            margin-top: 20px;
+                        }
+                        th, td {
+                            padding: 10px;
+                            border: 1px solid #ccc;
+                            text-align: left;
+                        }
+                        th {
+                            background-color: #2e7d32;
+                            color: white;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <h2>Purchase Request Details</h2>
+                    <table>
+                        <thead>
+                            <tr><th>Field</th><th>Value</th></tr>
+                        </thead>
+                        <tbody>`;
 
-    rowData.forEach((value, index) => {
-        html += `<tr>
-                    <td>${headers[index] || "Field " + (index + 1)}</td>
-                    <td>${value}</td>
-                 </tr>`;
-    });
+            rowData.forEach((value, index) => {
+                html += `<tr>
+                            <td>${headers[index] || "Field " + (index + 1)}</td>
+                            <td>${value}</td>
+                        </tr>`;
+            });
 
-    html += `
-                </tbody>
-            </table>
-        </body>
-        </html>
-    `;
+            html += `
+                        </tbody>
+                    </table>
+                </body>
+                </html>
+            `;
 
-    const printWindow = window.open('', '_blank');
-    printWindow.document.write(html);
-    printWindow.document.close();
-    printWindow.focus();
-    printWindow.print();
-    printWindow.close();
-}
+            const printWindow = window.open('', '_blank');
+            printWindow.document.write(html);
+            printWindow.document.close();
+            printWindow.focus();
+            printWindow.print();
+            printWindow.close();
+        }
 
-
-
-function displayUserEmail() {
-    const userData = localStorage.getItem("user");
-    if (userData) {
-        const parsedUser = JSON.parse(userData);
-        const email = parsedUser.email;
-        document.getElementById("email-display").textContent = "Logged in: " + email;
-    } else {
-        document.getElementById("email-display").textContent = "Not logged in.";
-    }
-}
-        
-
-
+        function displayUserEmail() {
+            const userData = localStorage.getItem("user");
+            if (userData) {
+                const parsedUser = JSON.parse(userData);
+                const email = parsedUser.email;
+                document.getElementById("email-display").textContent = "Logged in: " + email;
+            } else {
+                document.getElementById("email-display").textContent = "Not logged in.";
+            }
+        }
 
         window.addEventListener("DOMContentLoaded", function() {
             fetchData();
-            displayUserEmail(); // Call the function to display the email
+            displayUserEmail();
         });
 
+        let sessionTimeout, warningTimeout, countdownInterval;
+        const sessionLimit = 30 * 60 * 1000;
+        const warningTime = 28 * 60 * 1000;
 
-// --- Session Timeout Logic with Centered Image and Countdown ---
-    let sessionTimeout, warningTimeout, countdownInterval;
-    const sessionLimit = 30 * 60 * 1000; // 2 minutes
-    const warningTime = 28 * 60 * 1000;  // 1 minute
+        function resetSessionTimers() {
+            clearTimeout(sessionTimeout);
+            clearTimeout(warningTimeout);
+            clearInterval(countdownInterval);
+            document.getElementById("session-warning")?.remove();
 
-    function resetSessionTimers() {
-        clearTimeout(sessionTimeout);
-        clearTimeout(warningTimeout);
-        clearInterval(countdownInterval);
-        document.getElementById("session-warning")?.remove();
+            warningTimeout = setTimeout(showCountdownWarning, warningTime);
 
-        warningTimeout = setTimeout(showCountdownWarning, warningTime);
-
-        sessionTimeout = setTimeout(() => {
-            alert("Session expired due to inactivity.");
-            localStorage.removeItem("user");
-            window.location.href = "index.html";
-        }, sessionLimit);
-    }
-
-    function showCountdownWarning() {
-        const div = document.createElement("div");
-        div.id = "session-warning";
-        div.style.position = "fixed";
-        div.style.top = "0";
-        div.style.left = "0";
-        div.style.width = "100%";
-        div.style.height = "100%";
-        div.style.backgroundColor = "rgba(0, 0, 0, 0.8)";
-        div.style.display = "flex";
-        div.style.flexDirection = "column";
-        div.style.alignItems = "center";
-        div.style.justifyContent = "center";
-        div.style.zIndex = "9999";
-        div.style.color = "white";
-        div.style.textAlign = "center";
-        div.innerHTML = `
-            <img src="https://drive.google.com/uc?export=view&id=1otD1-q33yGpG8Y4oD87HT-E3DmmLApUO" 
-                 alt="Logo" style="width:150px; height:auto; margin-bottom: 20px; animation: pulse 2s infinite;">
-            <div style="font-size: 24px;">
-                ⏳ <span id="countdown-timer">120</span> seconds left! Stay active 😃🎉🥳
-            </div>
-        `;
-        document.body.appendChild(div);
-
-        let secondsLeft = 120;
-        countdownInterval = setInterval(() => {
-            secondsLeft--;
-            if (secondsLeft <= 0) {
-                clearInterval(countdownInterval);
-                div.innerHTML = `<h2 style="color:white;">🚪 Session expired!</h2>`;
-            } else {
-                document.getElementById("countdown-timer").textContent = secondsLeft;
-            }
-        }, 1000);
-    }
-
-    // Animate logo
-    const style = document.createElement("style");
-    style.innerHTML = `
-        @keyframes pulse {
-            0% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.1); opacity: 0.8; }
-            100% { transform: scale(1); opacity: 1; }
+            sessionTimeout = setTimeout(() => {
+                alert("Session expired due to inactivity.");
+                localStorage.removeItem("user");
+                window.location.href = "index.html";
+            }, sessionLimit);
         }
-    `;
-    document.head.appendChild(style);
 
-    // Reset timers on user interaction
-    ["click", "mousemove", "keypress", "scroll", "touchstart"].forEach(evt =>
-        document.addEventListener(evt, resetSessionTimers)
-    );
+        function showCountdownWarning() {
+            const div = document.createElement("div");
+            div.id = "session-warning";
+            div.style.position = "fixed";
+            div.style.top = "0";
+            div.style.left = "0";
+            div.style.width = "100%";
+            div.style.height = "100%";
+            div.style.backgroundColor = "rgba(0, 0, 0, 0.8)";
+            div.style.display = "flex";
+            div.style.flexDirection = "column";
+            div.style.alignItems = "center";
+            div.style.justifyContent = "center";
+            div.style.zIndex = "9999";
+            div.style.color = "white";
+            div.style.textAlign = "center";
+            div.innerHTML = `
+                <img src="https://drive.google.com/uc?export=view&id=1otD1-q33yGpG8Y4oD87HT-E3DmmLApUO"
+                    alt="Logo" style="width:150px; height:auto; margin-bottom: 20px; animation: pulse 2s infinite;">
+                <div style="font-size: 24px;">
+                    ⏳ <span id="countdown-timer">120</span> seconds left! Stay active 😃🎉🥳
+                </div>
+            `;
+            document.body.appendChild(div);
 
-    window.addEventListener("load", resetSessionTimers);
-        
+            let secondsLeft = 120;
+            countdownInterval = setInterval(() => {
+                secondsLeft--;
+                if (secondsLeft <= 0) {
+                    clearInterval(countdownInterval);
+                    div.innerHTML = `<h2 style="color:white;">🚪 Session expired!</h2>`;
+                } else {
+                    document.getElementById("countdown-timer").textContent = secondsLeft;
+                }
+            }, 1000);
+        }
 
-        
+        const style = document.createElement("style");
+        style.innerHTML = `
+            @keyframes pulse {
+                0% { transform: scale(1); opacity: 1; }
+                50% { transform: scale(1.1); opacity: 0.8; }
+                100% { transform: scale(1); opacity: 1; }
+            }
+        `;
+        document.head.appendChild(style);
+
+        ["click", "mousemove", "keypress", "scroll", "touchstart"].forEach(evt =>
+            document.addEventListener(evt, resetSessionTimers)
+        );
+
+        window.addEventListener("load", resetSessionTimers);
     </script>
 </body>
 </html>
