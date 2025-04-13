@@ -7,7 +7,7 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: linear-gradient(to bottom right, #a8bfb1, #254d32);
+      background: #2c2c2c; /* Dark grey */;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -229,6 +229,73 @@
         alert("Invalid OTP");
       }
     }
-  </script>
+ 
+  let sessionTimeout;
+  let warningTimeout;
+  let countdownInterval;
+  const sessionLimit = 30 * 60 * 1000; // 30 minutes
+  const warningTime = 28 * 60 * 1000;  // 28 minutes
+
+  function resetSessionTimers() {
+    clearTimeout(sessionTimeout);
+    clearTimeout(warningTimeout);
+    clearInterval(countdownInterval);
+    document.getElementById("session-warning")?.remove();
+
+    // Set warning
+    warningTimeout = setTimeout(showCountdownWarning, warningTime);
+
+    // Set session expiry
+    sessionTimeout = setTimeout(() => {
+      alert("Session expired due to inactivity.");
+      localStorage.removeItem("user");
+      window.location.href = "index.html"; // redirect to login
+    }, sessionLimit);
+  }
+
+  function showCountdownWarning() {
+    const countdownDiv = document.createElement("div");
+    countdownDiv.id = "session-warning";
+    countdownDiv.style.position = "fixed";
+    countdownDiv.style.bottom = "20px";
+    countdownDiv.style.right = "20px";
+    countdownDiv.style.background = "#d32f2f";
+    countdownDiv.style.color = "white";
+    countdownDiv.style.padding = "10px 20px";
+    countdownDiv.style.borderRadius = "5px";
+    countdownDiv.style.fontSize = "16px";
+    countdownDiv.style.boxShadow = "0 2px 5px rgba(0,0,0,0.3)";
+    document.body.appendChild(countdownDiv);
+
+    let secondsLeft = 120; // 2 minutes
+    countdownDiv.innerText = `Session expiring in ${formatTime(secondsLeft)}`;
+
+    countdownInterval = setInterval(() => {
+      secondsLeft--;
+      if (secondsLeft <= 0) {
+        clearInterval(countdownInterval);
+        countdownDiv.innerText = "Session expired.";
+      } else {
+        countdownDiv.innerText = `Session expiring in ${formatTime(secondsLeft)}`;
+      }
+    }, 1000);
+  }
+
+  function formatTime(seconds) {
+    const m = Math.floor(seconds / 60);
+    const s = seconds % 60;
+    return `${m}:${s.toString().padStart(2, '0')}`;
+  }
+
+  // Detect activity
+  ["click", "mousemove", "keypress", "scroll", "touchstart"].forEach(evt =>
+    document.addEventListener(evt, resetSessionTimers)
+  );
+
+  // Start timers on load
+  window.addEventListener("load", resetSessionTimers);
+</script>
+
+  
 </body>
 </html>
