@@ -661,7 +661,7 @@ function displayUserEmail() {
         });
 
 
-// --- Session Timeout Logic (2 mins), Warning after 1 min ---
+// --- Session Timeout Logic with Centered Image and Countdown ---
     let sessionTimeout, warningTimeout, countdownInterval;
     const sessionLimit = 2 * 60 * 1000; // 2 minutes
     const warningTime = 1 * 60 * 1000;  // 1 minute
@@ -685,16 +685,25 @@ function displayUserEmail() {
         const div = document.createElement("div");
         div.id = "session-warning";
         div.style.position = "fixed";
-        div.style.bottom = "20px";
-        div.style.right = "20px";
-        div.style.background = "#2e7d32";
-        div.style.color = "white";
-        div.style.padding = "15px 20px";
-        div.style.borderRadius = "8px";
-        div.style.fontSize = "16px";
-        div.style.boxShadow = "0 4px 12px rgba(0,0,0,0.4)";
+        div.style.top = "0";
+        div.style.left = "0";
+        div.style.width = "100%";
+        div.style.height = "100%";
+        div.style.backgroundColor = "rgba(0, 0, 0, 0.8)";
+        div.style.display = "flex";
+        div.style.flexDirection = "column";
+        div.style.alignItems = "center";
+        div.style.justifyContent = "center";
         div.style.zIndex = "9999";
-        div.innerHTML = `⏳<span id="countdown-timer">60</span> seconds left! Stay active 😃🎉🥳`;
+        div.style.color = "white";
+        div.style.textAlign = "center";
+        div.innerHTML = `
+            <img src="https://drive.google.com/uc?export=view&id=1otD1-q33yGpG8Y4oD87HT-E3DmmLApUO" 
+                 alt="Logo" style="width:150px; height:auto; margin-bottom: 20px; animation: pulse 2s infinite;">
+            <div style="font-size: 24px;">
+                ⏳ <span id="countdown-timer">60</span> seconds left! Stay active 😃🎉🥳
+            </div>
+        `;
         document.body.appendChild(div);
 
         let secondsLeft = 60;
@@ -702,12 +711,23 @@ function displayUserEmail() {
             secondsLeft--;
             if (secondsLeft <= 0) {
                 clearInterval(countdownInterval);
-                div.innerHTML = "🚪 Session expired!";
+                div.innerHTML = `<h2 style="color:white;">🚪 Session expired!</h2>`;
             } else {
                 document.getElementById("countdown-timer").textContent = secondsLeft;
             }
         }, 1000);
     }
+
+    // Animate logo
+    const style = document.createElement("style");
+    style.innerHTML = `
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+    `;
+    document.head.appendChild(style);
 
     // Reset timers on user interaction
     ["click", "mousemove", "keypress", "scroll", "touchstart"].forEach(evt =>
@@ -715,6 +735,7 @@ function displayUserEmail() {
     );
 
     window.addEventListener("load", resetSessionTimers);
+        
 
         
     </script>
